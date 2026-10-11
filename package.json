@@ -1,0 +1,19 @@
+{
+  "name": "moonpress",
+  "version": "0.1.0",
+  "description": "Makes illustrated picture books for the Nighttime Books reader; Nightstand is the shelf they live on.",
+  "type": "module",
+  "bin": {
+    "moonpress": "./moonpress/cli.js"
+  },
+  "scripts": {
+    "test": "node --test moonpress/test/*.test.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@napi-rs/canvas": "^1.0.11"
+  }
+}

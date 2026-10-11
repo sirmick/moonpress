@@ -1,0 +1,57 @@
+{
+ "v": 1,
+ "minApp": 2,
+ "generated": "2026-10-11T19:37:11.459Z",
+ "books": [
+  {
+   "slug": "kittens",
+   "title": "Goodnight, Kittens",
+   "set": "bedtime",
+   "series": "bedtime",
+   "hash": "701f433c666a",
+   "bytes": 935205,
+   "pages": 12,
+   "files": [
+    "book.json",
+    "cover.webp",
+    "p01.webp",
+    "p02.webp",
+    "p03.webp",
+    "p04.webp",
+    "p05.webp",
+    "p06.webp",
+    "p07.webp",
+    "p08.webp",
+    "p09.webp",
+    "p10.webp",
+    "p11.webp",
+    "p12.webp"
+   ]
+  },
+  {
+   "slug": "r01-sit-pip",
+   "title": "Sit, Pip",
+   "set": "reading",
+   "series": "reading",
+   "hash": "65c63dc5d511",
+   "bytes": 506531,
+   "pages": 12,
+   "files": [
+    "book.json",
+    "cover.webp",
+    "p01.webp",
+    "p02.webp",
+    "p03.webp",
+    "p04.webp",
+    "p05.webp",
+    "p06.webp",
+    "p07.webp",
+    "p08.webp",
+    "p09.webp",
+    "p10.webp",
+    "p11.webp",
+    "p12.webp"
+   ]
+  }
+ ]
+}

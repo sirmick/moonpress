@@ -1,0 +1,250 @@
+{
+ "v": 1,
+ "pages": {
+  "p01": {
+   "write": {
+    "in": "74ebadf8b2ac",
+    "out": "1b37c4532cdb"
+   },
+   "image": {
+    "inputs": "6c7624112ab0",
+    "refs": [
+     "Pip"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Very simple, bold, clean picture-book illustration for a child learning to read: flat colours, thick soft black outlines, big rounded shapes, plain cream background with at most one prop, nothing in the picture that is not in the sentence, no scenery, no gradients, no texture, no photorealism. Limited palette of five muted colours plus cream. Dark colours only in outlines and small accents. Friendly, calm mood. No text, letters or numbers anywhere in the image. Palette: cream, warm grey, ginger orange, soft blue, grass green.. Animals keep their natural colours. Characters in this picture: Pip, a small brown-and-white beagle puppy with floppy ears and a red collar. The attached images are character references, in this order: Pip. Draw each character exactly as in its reference (same colours, markings, proportions). Show only what the scene describes, on a plain cream background. Scene: Pip the beagle pup sitting, looking at the reader. Keep the bottom third of the image plain cream because a large text panel will be drawn there.",
+    "cost": 0.0678685,
+    "seconds": 9.4,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "p02": {
+   "write": {
+    "in": "9a05e4d2a341",
+    "out": "cd353be64288"
+   },
+   "image": {
+    "inputs": "359dc2a7e634",
+    "refs": [
+     "Tip"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Very simple, bold, clean picture-book illustration for a child learning to read: flat colours, thick soft black outlines, big rounded shapes, plain cream background with at most one prop, nothing in the picture that is not in the sentence, no scenery, no gradients, no texture, no photorealism. Limited palette of five muted colours plus cream. Dark colours only in outlines and small accents. Friendly, calm mood. No text, letters or numbers anywhere in the image. Palette: cream, warm grey, ginger orange, soft blue, grass green.. Animals keep their natural colours. Characters in this picture: Tip, a small ginger kitten with white paws and big round eyes. The attached images are character references, in this order: Tip. Draw each character exactly as in its reference (same colours, markings, proportions). Show only what the scene describes, on a plain cream background. Scene: Tip the ginger kitten sitting. Keep the bottom third of the image plain cream because a large text panel will be drawn there.",
+    "cost": 0.0678635,
+    "seconds": 9.3,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "p03": {
+   "write": {
+    "in": "a88f4b67d338",
+    "out": "c92a71424c6e"
+   },
+   "image": {
+    "inputs": "d0b38a7a766a",
+    "refs": [
+     "Pip"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Very simple, bold, clean picture-book illustration for a child learning to read: flat colours, thick soft black outlines, big rounded shapes, plain cream background with at most one prop, nothing in the picture that is not in the sentence, no scenery, no gradients, no texture, no photorealism. Limited palette of five muted colours plus cream. Dark colours only in outlines and small accents. Friendly, calm mood. No text, letters or numbers anywhere in the image. Palette: cream, warm grey, ginger orange, soft blue, grass green.. Animals keep their natural colours. Characters in this picture: Pip, a small brown-and-white beagle puppy with floppy ears and a red collar. The attached images are character references, in this order: Pip. Draw each character exactly as in its reference (same colours, markings, proportions). Show only what the scene describes, on a plain cream background. Scene: Pip sitting up straight and proud. Keep the bottom third of the image plain cream because a large text panel will be drawn there.",
+    "cost": 0.0678665,
+    "seconds": 8.9,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "p04": {
+   "write": {
+    "in": "14d7300c5c3a",
+    "out": "5b9bdb13dddb"
+   },
+   "image": {
+    "inputs": "c835a667589d",
+    "refs": [
+     "Pip",
+     "Tip"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Very simple, bold, clean picture-book illustration for a child learning to read: flat colours, thick soft black outlines, big rounded shapes, plain cream background with at most one prop, nothing in the picture that is not in the sentence, no scenery, no gradients, no texture, no photorealism. Limited palette of five muted colours plus cream. Dark colours only in outlines and small accents. Friendly, calm mood. No text, letters or numbers anywhere in the image. Palette: cream, warm grey, ginger orange, soft blue, grass green.. Animals keep their natural colours. Characters in this picture: Pip, a small brown-and-white beagle puppy with floppy ears and a red collar. Tip, a small ginger kitten with white paws and big round eyes. The attached images are character references, in this order: Pip, Tip. Draw each character exactly as in its reference (same colours, markings, proportions). Show only what the scene describes, on a plain cream background. Scene: Tip sitting down beside Pip. Keep the bottom third of the image plain cream because a large text panel will be drawn there.",
+    "cost": 0.068434,
+    "seconds": 9.7,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "p05": {
+   "write": {
+    "in": "cafac2ed00e8",
+    "out": "11a218f04966"
+   },
+   "image": {
+    "inputs": "57c15c3eb14c",
+    "refs": [
+     "Pip",
+     "Tip"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Very simple, bold, clean picture-book illustration for a child learning to read: flat colours, thick soft black outlines, big rounded shapes, plain cream background with at most one prop, nothing in the picture that is not in the sentence, no scenery, no gradients, no texture, no photorealism. Limited palette of five muted colours plus cream. Dark colours only in outlines and small accents. Friendly, calm mood. No text, letters or numbers anywhere in the image. Palette: cream, warm grey, ginger orange, soft blue, grass green.. Animals keep their natural colours. Characters in this picture: Pip, a small brown-and-white beagle puppy with floppy ears and a red collar. Tip, a small ginger kitten with white paws and big round eyes. The attached images are character references, in this order: Pip, Tip. Draw each character exactly as in its reference (same colours, markings, proportions). Show only what the scene describes, on a plain cream background. Scene: Tip patting Pip's head with one paw. Keep the bottom third of the image plain cream because a large text panel will be drawn there.",
+    "cost": 0.0684365,
+    "seconds": 10.4,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "p06": {
+   "write": {
+    "in": "3385bd58b5cd",
+    "out": "3a860c1fa9ec"
+   },
+   "image": {
+    "inputs": "700ad8df6b96",
+    "refs": [
+     "Pip"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Very simple, bold, clean picture-book illustration for a child learning to read: flat colours, thick soft black outlines, big rounded shapes, plain cream background with at most one prop, nothing in the picture that is not in the sentence, no scenery, no gradients, no texture, no photorealism. Limited palette of five muted colours plus cream. Dark colours only in outlines and small accents. Friendly, calm mood. No text, letters or numbers anywhere in the image. Palette: cream, warm grey, ginger orange, soft blue, grass green.. Animals keep their natural colours. Characters in this picture: Pip, a small brown-and-white beagle puppy with floppy ears and a red collar. The attached images are character references, in this order: Pip. Draw each character exactly as in its reference (same colours, markings, proportions). Show only what the scene describes, on a plain cream background. Scene: Pip tapping the floor with a paw, small motion marks. Keep the bottom third of the image plain cream because a large text panel will be drawn there.",
+    "cost": 0.067869,
+    "seconds": 9.3,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "p07": {
+   "write": {
+    "in": "0a5e405ba6f8",
+    "out": "a13f1fb0d188"
+   },
+   "image": {
+    "inputs": "ed16a10e4b0b",
+    "refs": [
+     "Pip"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Very simple, bold, clean picture-book illustration for a child learning to read: flat colours, thick soft black outlines, big rounded shapes, plain cream background with at most one prop, nothing in the picture that is not in the sentence, no scenery, no gradients, no texture, no photorealism. Limited palette of five muted colours plus cream. Dark colours only in outlines and small accents. Friendly, calm mood. No text, letters or numbers anywhere in the image. Palette: cream, warm grey, ginger orange, soft blue, grass green.. Animals keep their natural colours. Characters in this picture: Pip, a small brown-and-white beagle puppy with floppy ears and a red collar. The attached images are character references, in this order: Pip. Draw each character exactly as in its reference (same colours, markings, proportions). Show only what the scene describes, on a plain cream background. Scene: Pip lying down with eyes closed. Keep the bottom third of the image plain cream because a large text panel will be drawn there.",
+    "cost": 0.0678665,
+    "seconds": 9,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "p08": {
+   "write": {
+    "in": "1bf52322fce4",
+    "out": "6d6b51896662"
+   },
+   "image": {
+    "inputs": "ba97dc8a2259",
+    "refs": [
+     "Pip"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Very simple, bold, clean picture-book illustration for a child learning to read: flat colours, thick soft black outlines, big rounded shapes, plain cream background with at most one prop, nothing in the picture that is not in the sentence, no scenery, no gradients, no texture, no photorealism. Limited palette of five muted colours plus cream. Dark colours only in outlines and small accents. Friendly, calm mood. No text, letters or numbers anywhere in the image. Palette: cream, warm grey, ginger orange, soft blue, grass green.. Animals keep their natural colours. Characters in this picture: Pip, a small brown-and-white beagle puppy with floppy ears and a red collar. The attached images are character references, in this order: Pip. Draw each character exactly as in its reference (same colours, markings, proportions). Show only what the scene describes, on a plain cream background. Scene: A tin of food on the floor, Pip sniffing it. Keep the bottom third of the image plain cream because a large text panel will be drawn there.",
+    "cost": 0.067869,
+    "seconds": 9,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "p09": {
+   "write": {
+    "in": "2150ac830dca",
+    "out": "30ccfa611811"
+   },
+   "image": {
+    "inputs": "b9a496677768",
+    "refs": [
+     "Tip"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Very simple, bold, clean picture-book illustration for a child learning to read: flat colours, thick soft black outlines, big rounded shapes, plain cream background with at most one prop, nothing in the picture that is not in the sentence, no scenery, no gradients, no texture, no photorealism. Limited palette of five muted colours plus cream. Dark colours only in outlines and small accents. Friendly, calm mood. No text, letters or numbers anywhere in the image. Palette: cream, warm grey, ginger orange, soft blue, grass green.. Animals keep their natural colours. Characters in this picture: Tip, a small ginger kitten with white paws and big round eyes. The attached images are character references, in this order: Tip. Draw each character exactly as in its reference (same colours, markings, proportions). Show only what the scene describes, on a plain cream background. Scene: Tip sipping from a saucer. Keep the bottom third of the image plain cream because a large text panel will be drawn there.",
+    "cost": 0.0678635,
+    "seconds": 9.2,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "p10": {
+   "write": {
+    "in": "1c4e34e3eaa6",
+    "out": "d1533a05c5b1"
+   },
+   "image": {
+    "inputs": "24c3d0d8caed",
+    "refs": [
+     "Pip",
+     "Tip"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Very simple, bold, clean picture-book illustration for a child learning to read: flat colours, thick soft black outlines, big rounded shapes, plain cream background with at most one prop, nothing in the picture that is not in the sentence, no scenery, no gradients, no texture, no photorealism. Limited palette of five muted colours plus cream. Dark colours only in outlines and small accents. Friendly, calm mood. No text, letters or numbers anywhere in the image. Palette: cream, warm grey, ginger orange, soft blue, grass green.. Animals keep their natural colours. Characters in this picture: Pip, a small brown-and-white beagle puppy with floppy ears and a red collar. Tip, a small ginger kitten with white paws and big round eyes. The attached images are character references, in this order: Pip, Tip. Draw each character exactly as in its reference (same colours, markings, proportions). Show only what the scene describes, on a plain cream background. Scene: Pip and Tip sitting side by side. Keep the bottom third of the image plain cream because a large text panel will be drawn there.",
+    "cost": 0.068435,
+    "seconds": 10.6,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "p11": {
+   "write": {
+    "in": "f3509baa5856",
+    "out": "ccf6b94d9ef2"
+   },
+   "image": {
+    "inputs": "4c7ee4d5c197",
+    "refs": [
+     "Pip",
+     "Tip"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Very simple, bold, clean picture-book illustration for a child learning to read: flat colours, thick soft black outlines, big rounded shapes, plain cream background with at most one prop, nothing in the picture that is not in the sentence, no scenery, no gradients, no texture, no photorealism. Limited palette of five muted colours plus cream. Dark colours only in outlines and small accents. Friendly, calm mood. No text, letters or numbers anywhere in the image. Palette: cream, warm grey, ginger orange, soft blue, grass green.. Animals keep their natural colours. Characters in this picture: Pip, a small brown-and-white beagle puppy with floppy ears and a red collar. Tip, a small ginger kitten with white paws and big round eyes. The attached images are character references, in this order: Pip, Tip. Draw each character exactly as in its reference (same colours, markings, proportions). Show only what the scene describes, on a plain cream background. Scene: Both lying down, eyes closing. Keep the bottom third of the image plain cream because a large text panel will be drawn there.",
+    "cost": 0.0684345,
+    "seconds": 9.5,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "p12": {
+   "write": {
+    "in": "af50d20e81df",
+    "out": "02e3c39b2ba9"
+   },
+   "image": {
+    "inputs": "2afa2154f871",
+    "refs": [
+     "Pip",
+     "Tip"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Very simple, bold, clean picture-book illustration for a child learning to read: flat colours, thick soft black outlines, big rounded shapes, plain cream background with at most one prop, nothing in the picture that is not in the sentence, no scenery, no gradients, no texture, no photorealism. Limited palette of five muted colours plus cream. Dark colours only in outlines and small accents. Friendly, calm mood. No text, letters or numbers anywhere in the image. Palette: cream, warm grey, ginger orange, soft blue, grass green.. Animals keep their natural colours. Characters in this picture: Pip, a small brown-and-white beagle puppy with floppy ears and a red collar. Tip, a small ginger kitten with white paws and big round eyes. The attached images are character references, in this order: Pip, Tip. Draw each character exactly as in its reference (same colours, markings, proportions). Show only what the scene describes, on a plain cream background. Scene: Both asleep, curled together. Keep the bottom third of the image plain cream because a large text panel will be drawn there.",
+    "cost": 0.068434,
+    "seconds": 10.8,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "cover": {
+   "image": {
+    "inputs": "54915ef70478",
+    "refs": [
+     "Pip"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Very simple, bold, clean picture-book illustration for a child learning to read: flat colours, thick soft black outlines, big rounded shapes, plain cream background with at most one prop, nothing in the picture that is not in the sentence, no scenery, no gradients, no texture, no photorealism. Limited palette of five muted colours plus cream. Dark colours only in outlines and small accents. Friendly, calm mood. No text, letters or numbers anywhere in the image. Palette: cream, warm grey, ginger orange, soft blue, grass green.. Animals keep their natural colours. Characters in this picture: Pip, a small brown-and-white beagle puppy with floppy ears and a red collar. The attached images are character references, in this order: Pip. Draw each character exactly as in its reference (same colours, markings, proportions). Show only what the scene describes, on a plain cream background. Scene: Pip the beagle pup sitting, looking at the reader. Big, simple and friendly. Keep the bottom third of the image plain cream because a large text panel will be drawn there.",
+    "cost": 0.0678715,
+    "seconds": 9.3,
+    "stale": false,
+    "imported": true
+   }
+  }
+ },
+ "spend": 0,
+ "plan": {
+  "in": "0537f0a38e6b",
+  "out": "848b7ac1a3d5"
+ },
+ "package": {
+  "hash": "65c63dc5d511",
+  "at": "2026-10-11T19:37:11.458Z",
+  "pages": 12
+ }
+}

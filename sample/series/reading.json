@@ -1,0 +1,23 @@
+{
+ "name": "reading",
+ "title": "Learning to read",
+ "set": "reading",
+ "brief": "Ten staged learn-to-read books with a shared cast of dogs and cats. Each page teaches one new word, shown big above a sentence that uses only words taught so far.",
+ "style": "Very simple, bold, clean picture-book illustration for a child learning to read: flat colours, thick soft black outlines, big rounded shapes, plain cream background with at most one prop, nothing in the picture that is not in the sentence, no scenery, no gradients, no texture, no photorealism. Limited palette of five muted colours plus cream. Dark colours only in outlines and small accents. Friendly, calm mood. No text, letters or numbers anywhere in the image.",
+ "palette": "cream, warm grey, ginger orange, soft blue, grass green.",
+ "cast": {
+  "Pip": "Pip, a small brown-and-white beagle puppy with floppy ears and a red collar",
+  "Tip": "Tip, a small ginger kitten with white paws and big round eyes"
+ },
+ "progression": {
+  "r01-sit-pip": {
+   "letters": "s a t p i n",
+   "sight": [
+    "a"
+   ]
+  }
+ },
+ "books": [
+  "r01-sit-pip"
+ ]
+}

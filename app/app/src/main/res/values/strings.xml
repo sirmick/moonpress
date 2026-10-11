@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Nighttime Books</string>
+    <string name="empty">No books yet.\n\nTap \u21bb to pull the shelf from Nightstand over Wi-Fi, or push a book folder to\n%s</string>
+</resources>

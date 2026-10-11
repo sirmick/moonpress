@@ -1,0 +1,14 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'com.mick.nighttimebooks'
+    compileSdk 34
+    defaultConfig {
+        applicationId 'com.mick.nighttimebooks'
+        minSdk 30
+        targetSdk 34
+        versionCode 2
+        versionName '0.2'
+    }
+    buildTypes { release { minifyEnabled false; signingConfig signingConfigs.debug } }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+}

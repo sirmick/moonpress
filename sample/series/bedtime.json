@@ -1,0 +1,10 @@
+{
+ "name": "bedtime",
+ "title": "Goodnight books",
+ "set": "bedtime",
+ "brief": "Twelve-page bedtime books, each following one small animal around its home as every other animal settles down to sleep, ending with the main character asleep. Each book has its own art style so the shelf looks varied.",
+ "timePhrase": "evening",
+ "books": [
+  "kittens"
+ ]
+}

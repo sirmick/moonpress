@@ -1,0 +1,257 @@
+{
+ "v": 1,
+ "pages": {
+  "p01": {
+   "write": {
+    "in": "ba3f4afcb4dc",
+    "out": "a68dcbb80f79"
+   },
+   "image": {
+    "inputs": "8da1cfc846ee",
+    "refs": [
+     "char"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Children's picture-book illustration for ages 3 to 6 in soft gouache in a mid-century picture-book manner: opaque matte paint with visible brush strokes, rounded simplified shapes, gentle paper texture, a limited palette of five muted colours plus cream, no hard black outlines (shapes are defined by colour), no gradients, no photorealism. Backgrounds are light and simple. Dark tones only in small accents, never large dark areas. Warm, calm, sleepy mood. No text, letters or numbers anywhere in the image. Palette for this book (for skies, ground, buildings and accents): dove grey, apricot, sage green, butter yellow, rose.. Animals keep their natural colours. Sky and light over the story: apricot → rose → lavender, warm lamplight in the windows.. This is page 1 of 12; pick the sky and light for that point in the evening. Main character: Mim, a small grey tabby kitten with dark stripes, white paws, a white chin and big green eyes. Match the attached character reference exactly (same colours, markings, proportions), unless the scene does not include the character. Scene: Mim wide awake in a cosy hallway, lamp glowing, apricot evening through the window. Keep the bottom quarter of the image simple and uncluttered (plain ground, water or sky) because a text panel will be drawn there.",
+    "cost": 0.0679005,
+    "seconds": 9.9,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "p02": {
+   "write": {
+    "in": "a0df795ed302",
+    "out": "5f5c02d43ef0"
+   },
+   "image": {
+    "inputs": "a964c588977d",
+    "refs": [
+     "char"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Children's picture-book illustration for ages 3 to 6 in soft gouache in a mid-century picture-book manner: opaque matte paint with visible brush strokes, rounded simplified shapes, gentle paper texture, a limited palette of five muted colours plus cream, no hard black outlines (shapes are defined by colour), no gradients, no photorealism. Backgrounds are light and simple. Dark tones only in small accents, never large dark areas. Warm, calm, sleepy mood. No text, letters or numbers anywhere in the image. Palette for this book (for skies, ground, buildings and accents): dove grey, apricot, sage green, butter yellow, rose.. Animals keep their natural colours. Sky and light over the story: apricot → rose → lavender, warm lamplight in the windows.. This is page 2 of 12; pick the sky and light for that point in the evening. Main character: Mim, a small grey tabby kitten with dark stripes, white paws, a white chin and big green eyes. Match the attached character reference exactly (same colours, markings, proportions), unless the scene does not include the character. Scene: Large orange tabby cat asleep in an armchair, Mim tiptoeing past. Keep the bottom quarter of the image simple and uncluttered (plain ground, water or sky) because a text panel will be drawn there.",
+    "cost": 0.0679,
+    "seconds": 10.2,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "p03": {
+   "write": {
+    "in": "63d96a430023",
+    "out": "71c01de21b8e"
+   },
+   "image": {
+    "inputs": "03570e1777e4",
+    "refs": [
+     "char"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Children's picture-book illustration for ages 3 to 6 in soft gouache in a mid-century picture-book manner: opaque matte paint with visible brush strokes, rounded simplified shapes, gentle paper texture, a limited palette of five muted colours plus cream, no hard black outlines (shapes are defined by colour), no gradients, no photorealism. Backgrounds are light and simple. Dark tones only in small accents, never large dark areas. Warm, calm, sleepy mood. No text, letters or numbers anywhere in the image. Palette for this book (for skies, ground, buildings and accents): dove grey, apricot, sage green, butter yellow, rose.. Animals keep their natural colours. Sky and light over the story: apricot → rose → lavender, warm lamplight in the windows.. This is page 3 of 12; pick the sky and light for that point in the evening. Main character: Mim, a small grey tabby kitten with dark stripes, white paws, a white chin and big green eyes. Match the attached character reference exactly (same colours, markings, proportions), unless the scene does not include the character. Scene: Very fluffy white Persian cat in a round basket, Mim peeking over the edge. Keep the bottom quarter of the image simple and uncluttered (plain ground, water or sky) because a text panel will be drawn there.",
+    "cost": 0.0679005,
+    "seconds": 10.8,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "p04": {
+   "write": {
+    "in": "c0c2b2f991d0",
+    "out": "54ba98c9dd5a"
+   },
+   "image": {
+    "inputs": "c7bff7bfdd49",
+    "refs": [
+     "char"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Children's picture-book illustration for ages 3 to 6 in soft gouache in a mid-century picture-book manner: opaque matte paint with visible brush strokes, rounded simplified shapes, gentle paper texture, a limited palette of five muted colours plus cream, no hard black outlines (shapes are defined by colour), no gradients, no photorealism. Backgrounds are light and simple. Dark tones only in small accents, never large dark areas. Warm, calm, sleepy mood. No text, letters or numbers anywhere in the image. Palette for this book (for skies, ground, buildings and accents): dove grey, apricot, sage green, butter yellow, rose.. Animals keep their natural colours. Sky and light over the story: apricot → rose → lavender, warm lamplight in the windows.. This is page 4 of 12; pick the sky and light for that point in the evening. Main character: Mim, a small grey tabby kitten with dark stripes, white paws, a white chin and big green eyes. Match the attached character reference exactly (same colours, markings, proportions), unless the scene does not include the character. Scene: Cream Siamese cat with dark points stretched along a radiator under a window, Mim below. Keep the bottom quarter of the image simple and uncluttered (plain ground, water or sky) because a text panel will be drawn there.",
+    "cost": 0.0679005,
+    "seconds": 8.5,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "p05": {
+   "write": {
+    "in": "174bc5bac5d5",
+    "out": "098f513f6ede"
+   },
+   "image": {
+    "inputs": "628ce4074632",
+    "refs": [
+     "char"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Children's picture-book illustration for ages 3 to 6 in soft gouache in a mid-century picture-book manner: opaque matte paint with visible brush strokes, rounded simplified shapes, gentle paper texture, a limited palette of five muted colours plus cream, no hard black outlines (shapes are defined by colour), no gradients, no photorealism. Backgrounds are light and simple. Dark tones only in small accents, never large dark areas. Warm, calm, sleepy mood. No text, letters or numbers anywhere in the image. Palette for this book (for skies, ground, buildings and accents): dove grey, apricot, sage green, butter yellow, rose.. Animals keep their natural colours. Sky and light over the story: apricot → rose → lavender, warm lamplight in the windows.. This is page 5 of 12; pick the sky and light for that point in the evening. Main character: Mim, a small grey tabby kitten with dark stripes, white paws, a white chin and big green eyes. Match the attached character reference exactly (same colours, markings, proportions), unless the scene does not include the character. Scene: Small black cat curled on top of an upright piano, Mim on the piano stool. Keep the top quarter of the image simple and uncluttered (plain ground, water or sky) because a text panel will be drawn there.",
+    "cost": 0.0679005,
+    "seconds": 10,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "p06": {
+   "write": {
+    "in": "b91dd598a839",
+    "out": "2e49c572aef9"
+   },
+   "image": {
+    "inputs": "4d5b026b867f",
+    "refs": [
+     "char"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Children's picture-book illustration for ages 3 to 6 in soft gouache in a mid-century picture-book manner: opaque matte paint with visible brush strokes, rounded simplified shapes, gentle paper texture, a limited palette of five muted colours plus cream, no hard black outlines (shapes are defined by colour), no gradients, no photorealism. Backgrounds are light and simple. Dark tones only in small accents, never large dark areas. Warm, calm, sleepy mood. No text, letters or numbers anywhere in the image. Palette for this book (for skies, ground, buildings and accents): dove grey, apricot, sage green, butter yellow, rose.. Animals keep their natural colours. Sky and light over the story: apricot → rose → lavender, warm lamplight in the windows.. This is page 6 of 12; pick the sky and light for that point in the evening. Main character: Mim, a small grey tabby kitten with dark stripes, white paws, a white chin and big green eyes. Match the attached character reference exactly (same colours, markings, proportions), unless the scene does not include the character. Scene: Orange, black and white calico cat on a stair, one paw dangling, Mim on the step below. Keep the bottom quarter of the image simple and uncluttered (plain ground, water or sky) because a text panel will be drawn there.",
+    "cost": 0.067903,
+    "seconds": 9.3,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "p07": {
+   "write": {
+    "in": "8fe880dc35b2",
+    "out": "cc52edcf8653"
+   },
+   "image": {
+    "inputs": "b1debf58f57a",
+    "refs": [
+     "char"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Children's picture-book illustration for ages 3 to 6 in soft gouache in a mid-century picture-book manner: opaque matte paint with visible brush strokes, rounded simplified shapes, gentle paper texture, a limited palette of five muted colours plus cream, no hard black outlines (shapes are defined by colour), no gradients, no photorealism. Backgrounds are light and simple. Dark tones only in small accents, never large dark areas. Warm, calm, sleepy mood. No text, letters or numbers anywhere in the image. Palette for this book (for skies, ground, buildings and accents): dove grey, apricot, sage green, butter yellow, rose.. Animals keep their natural colours. Sky and light over the story: apricot → rose → lavender, warm lamplight in the windows.. This is page 7 of 12; pick the sky and light for that point in the evening. Main character: Mim, a small grey tabby kitten with dark stripes, white paws, a white chin and big green eyes. Match the attached character reference exactly (same colours, markings, proportions), unless the scene does not include the character. Scene: Huge shaggy brown Maine Coon filling a doormat, tiny Mim beside him. Keep the bottom quarter of the image simple and uncluttered (plain ground, water or sky) because a text panel will be drawn there.",
+    "cost": 0.0679005,
+    "seconds": 9,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "p08": {
+   "write": {
+    "in": "1b4e5fe54d09",
+    "out": "15cc3c15c079"
+   },
+   "image": {
+    "inputs": "ed2f19bd98cd",
+    "refs": [
+     "char"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Children's picture-book illustration for ages 3 to 6 in soft gouache in a mid-century picture-book manner: opaque matte paint with visible brush strokes, rounded simplified shapes, gentle paper texture, a limited palette of five muted colours plus cream, no hard black outlines (shapes are defined by colour), no gradients, no photorealism. Backgrounds are light and simple. Dark tones only in small accents, never large dark areas. Warm, calm, sleepy mood. No text, letters or numbers anywhere in the image. Palette for this book (for skies, ground, buildings and accents): dove grey, apricot, sage green, butter yellow, rose.. Animals keep their natural colours. Sky and light over the story: apricot → rose → lavender, warm lamplight in the windows.. This is page 8 of 12; pick the sky and light for that point in the evening. Main character: Mim, a small grey tabby kitten with dark stripes, white paws, a white chin and big green eyes. Match the attached character reference exactly (same colours, markings, proportions), unless the scene does not include the character. Scene: Scruffy grey-and-white old cat on a pile of hay by an open back door, rose sky outside. Keep the bottom quarter of the image simple and uncluttered (plain ground, water or sky) because a text panel will be drawn there.",
+    "cost": 0.0679045,
+    "seconds": 9.5,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "p09": {
+   "write": {
+    "in": "f30a2c1d2f51",
+    "out": "75eafdaa0b60"
+   },
+   "image": {
+    "inputs": "59e79d4f5969",
+    "refs": [
+     "char"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Children's picture-book illustration for ages 3 to 6 in soft gouache in a mid-century picture-book manner: opaque matte paint with visible brush strokes, rounded simplified shapes, gentle paper texture, a limited palette of five muted colours plus cream, no hard black outlines (shapes are defined by colour), no gradients, no photorealism. Backgrounds are light and simple. Dark tones only in small accents, never large dark areas. Warm, calm, sleepy mood. No text, letters or numbers anywhere in the image. Palette for this book (for skies, ground, buildings and accents): dove grey, apricot, sage green, butter yellow, rose.. Animals keep their natural colours. Sky and light over the story: apricot → rose → lavender, warm lamplight in the windows.. This is page 9 of 12; pick the sky and light for that point in the evening. Main character: Mim, a small grey tabby kitten with dark stripes, white paws, a white chin and big green eyes. Match the attached character reference exactly (same colours, markings, proportions), unless the scene does not include the character. Scene: Mim looking into an empty bowl on a kitchen floor, a round wall clock above. Keep the bottom quarter of the image simple and uncluttered (plain ground, water or sky) because a text panel will be drawn there.",
+    "cost": 0.0679005,
+    "seconds": 9.6,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "p10": {
+   "write": {
+    "in": "fcc5c785dc48",
+    "out": "f5a52e7e6ccd"
+   },
+   "image": {
+    "inputs": "54bbab9bd47b",
+    "refs": [
+     "char"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Children's picture-book illustration for ages 3 to 6 in soft gouache in a mid-century picture-book manner: opaque matte paint with visible brush strokes, rounded simplified shapes, gentle paper texture, a limited palette of five muted colours plus cream, no hard black outlines (shapes are defined by colour), no gradients, no photorealism. Backgrounds are light and simple. Dark tones only in small accents, never large dark areas. Warm, calm, sleepy mood. No text, letters or numbers anywhere in the image. Palette for this book (for skies, ground, buildings and accents): dove grey, apricot, sage green, butter yellow, rose.. Animals keep their natural colours. Sky and light over the story: apricot → rose → lavender, warm lamplight in the windows.. This is page 10 of 12; pick the sky and light for that point in the evening. Main character: Mim, a small grey tabby kitten with dark stripes, white paws, a white chin and big green eyes. Match the attached character reference exactly (same colours, markings, proportions), unless the scene does not include the character. Scene: Mim on a windowsill looking up at a big moon, pale lavender sky (light, not dark blue). Keep the top quarter of the image simple and uncluttered (plain ground, water or sky) because a text panel will be drawn there.",
+    "cost": 0.067903,
+    "seconds": 10.3,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "p11": {
+   "write": {
+    "in": "bee2353a4665",
+    "out": "f1ff86cf90eb"
+   },
+   "image": {
+    "inputs": "cd3e0e6d90f4",
+    "refs": [
+     "char"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Children's picture-book illustration for ages 3 to 6 in soft gouache in a mid-century picture-book manner: opaque matte paint with visible brush strokes, rounded simplified shapes, gentle paper texture, a limited palette of five muted colours plus cream, no hard black outlines (shapes are defined by colour), no gradients, no photorealism. Backgrounds are light and simple. Dark tones only in small accents, never large dark areas. Warm, calm, sleepy mood. No text, letters or numbers anywhere in the image. Palette for this book (for skies, ground, buildings and accents): dove grey, apricot, sage green, butter yellow, rose.. Animals keep their natural colours. Sky and light over the story: apricot → rose → lavender, warm lamplight in the windows.. This is page 11 of 12; pick the sky and light for that point in the evening. Main character: Mim, a small grey tabby kitten with dark stripes, white paws, a white chin and big green eyes. Match the attached character reference exactly (same colours, markings, proportions), unless the scene does not include the character. Scene: Close-up of Mim mid-yawn on a rug. Keep the bottom quarter of the image simple and uncluttered (plain ground, water or sky) because a text panel will be drawn there.",
+    "cost": 0.067899,
+    "seconds": 9.5,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "p12": {
+   "write": {
+    "in": "368f73944c1f",
+    "out": "a42ced2549a7"
+   },
+   "image": {
+    "inputs": "9bb89caf9b9f",
+    "refs": [
+     "char"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Children's picture-book illustration for ages 3 to 6 in soft gouache in a mid-century picture-book manner: opaque matte paint with visible brush strokes, rounded simplified shapes, gentle paper texture, a limited palette of five muted colours plus cream, no hard black outlines (shapes are defined by colour), no gradients, no photorealism. Backgrounds are light and simple. Dark tones only in small accents, never large dark areas. Warm, calm, sleepy mood. No text, letters or numbers anywhere in the image. Palette for this book (for skies, ground, buildings and accents): dove grey, apricot, sage green, butter yellow, rose.. Animals keep their natural colours. Sky and light over the story: apricot → rose → lavender, warm lamplight in the windows.. This is page 12 of 12; pick the sky and light for that point in the evening. Main character: Mim, a small grey tabby kitten with dark stripes, white paws, a white chin and big green eyes. Match the attached character reference exactly (same colours, markings, proportions), unless the scene does not include the character. Scene: Mim curled up asleep against the ginger tom in the armchair, lamp glowing. Keep the bottom quarter of the image simple and uncluttered (plain ground, water or sky) because a text panel will be drawn there.",
+    "cost": 0.0679,
+    "seconds": 9.1,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "char": {
+   "image": {
+    "inputs": "8419d946ecdb",
+    "refs": [],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Character reference sheet for a children's picture book. Children's picture-book illustration for ages 3 to 6 in soft gouache in a mid-century picture-book manner: opaque matte paint with visible brush strokes, rounded simplified shapes, gentle paper texture, a limited palette of five muted colours plus cream, no hard black outlines (shapes are defined by colour), no gradients, no photorealism. Backgrounds are light and simple. Dark tones only in small accents, never large dark areas. Warm, calm, sleepy mood. No text, letters or numbers anywhere in the image. Palette: dove grey, apricot, sage green, butter yellow, rose.. Show the same character three times on a plain cream background: standing front view, side view, and curled up asleep. The character: Mim, a small grey tabby kitten with dark stripes, white paws, a white chin and big green eyes. Identical colours, markings and proportions in all three.",
+    "cost": 0.067298,
+    "seconds": 8.4,
+    "stale": false,
+    "imported": true
+   }
+  },
+  "cover": {
+   "image": {
+    "inputs": "d6bb01d7deef",
+    "refs": [
+     "char"
+    ],
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "Children's picture-book illustration for ages 3 to 6 in soft gouache in a mid-century picture-book manner: opaque matte paint with visible brush strokes, rounded simplified shapes, gentle paper texture, a limited palette of five muted colours plus cream, no hard black outlines (shapes are defined by colour), no gradients, no photorealism. Backgrounds are light and simple. Dark tones only in small accents, never large dark areas. Warm, calm, sleepy mood. No text, letters or numbers anywhere in the image. Palette for this book (for skies, ground, buildings and accents): dove grey, apricot, sage green, butter yellow, rose.. Animals keep their natural colours. Sky and light over the story: apricot → rose → lavender, warm lamplight in the windows.. Cover illustration for the book 'Goodnight, Kittens'. Scene: Mim on a windowsill, a cosy living room with sleeping cats behind her. Main character: Mim, a small grey tabby kitten with dark stripes, white paws, a white chin and big green eyes. Match the attached character reference exactly. The cover may use the whole image.",
+    "cost": 0.0678765,
+    "seconds": 11.3,
+    "stale": false,
+    "imported": true
+   }
+  }
+ },
+ "spend": 0,
+ "plan": {
+  "in": "0537f0a38e6b",
+  "out": "f4dd71a67fb5"
+ },
+ "package": {
+  "hash": "701f433c666a",
+  "at": "2026-10-11T19:37:09.390Z",
+  "pages": 12
+ }
+}

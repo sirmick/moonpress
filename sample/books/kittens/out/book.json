@@ -1,0 +1,92 @@
+{
+ "slug": "kittens",
+ "title": "Goodnight, Kittens",
+ "set": "bedtime",
+ "cover": "cover.webp",
+ "pages": [
+  {
+   "n": 1,
+   "image": "p01.webp",
+   "text": "The house is warm and quiet. Mim the little tabby kitten is not sleepy. Not one bit.",
+   "text_pos": "bottom",
+   "word": ""
+  },
+  {
+   "n": 2,
+   "image": "p02.webp",
+   "text": "The big ginger tom is asleep in the armchair. Mim tiptoes on.",
+   "text_pos": "bottom",
+   "word": ""
+  },
+  {
+   "n": 3,
+   "image": "p03.webp",
+   "text": "The fluffy white Persian is asleep in a basket, like a cloud with ears.",
+   "text_pos": "bottom",
+   "word": ""
+  },
+  {
+   "n": 4,
+   "image": "p04.webp",
+   "text": "The sleek Siamese is asleep on the radiator, warm as toast.",
+   "text_pos": "bottom",
+   "word": ""
+  },
+  {
+   "n": 5,
+   "image": "p05.webp",
+   "text": "The black cat is asleep on the piano. Shh, don't wake the keys.",
+   "text_pos": "top",
+   "word": ""
+  },
+  {
+   "n": 6,
+   "image": "p06.webp",
+   "text": "The calico cat is asleep on the stairs, one paw hanging down.",
+   "text_pos": "bottom",
+   "word": ""
+  },
+  {
+   "n": 7,
+   "image": "p07.webp",
+   "text": "The enormous Maine Coon is asleep across the whole doormat.",
+   "text_pos": "bottom",
+   "word": ""
+  },
+  {
+   "n": 8,
+   "image": "p08.webp",
+   "text": "The old barn cat is asleep in the hay by the back door.",
+   "text_pos": "bottom",
+   "word": ""
+  },
+  {
+   "n": 9,
+   "image": "p09.webp",
+   "text": "Mim finds the kitchen. The milk bowl is empty. The clock goes tick, tock.",
+   "text_pos": "bottom",
+   "word": ""
+  },
+  {
+   "n": 10,
+   "image": "p10.webp",
+   "text": "Mim finds the window. The moon looks in. \"Hello, moon,\" says Mim.",
+   "text_pos": "top",
+   "word": ""
+  },
+  {
+   "n": 11,
+   "image": "p11.webp",
+   "text": "Mim yawns a very small yawn. Then a bigger one.",
+   "text_pos": "bottom",
+   "word": ""
+  },
+  {
+   "n": 12,
+   "image": "p12.webp",
+   "text": "Mim curls up in the ginger tom's warm armchair. Goodnight, kittens.",
+   "text_pos": "bottom",
+   "word": ""
+  }
+ ]
+}

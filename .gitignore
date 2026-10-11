@@ -1,0 +1,10 @@
+node_modules/
+work/
+*.token
+# Android
+app/build/
+app/app/build/
+app/.gradle/
+app/local.properties
+app/app/src/main/assets/books/
+*.apk

@@ -1,0 +1,86 @@
+{
+ "slug": "kittens",
+ "series": "bedtime",
+ "set": "bedtime",
+ "title": "Goodnight, Kittens",
+ "character": "Mim, a small grey tabby kitten with dark stripes, white paws, a white chin and big green eyes.",
+ "refrain": "Mim tiptoes on.",
+ "palette": "dove grey, apricot, sage green, butter yellow, rose.",
+ "sky": "apricot → rose → lavender, warm lamplight in the windows.",
+ "cover": "Mim on a windowsill, a cosy living room with sleeping cats behind her.",
+ "style": "Children's picture-book illustration for ages 3 to 6 in soft gouache in a mid-century picture-book manner: opaque matte paint with visible brush strokes, rounded simplified shapes, gentle paper texture, a limited palette of five muted colours plus cream, no hard black outlines (shapes are defined by colour), no gradients, no photorealism. Backgrounds are light and simple. Dark tones only in small accents, never large dark areas. Warm, calm, sleepy mood. No text, letters or numbers anywhere in the image.",
+ "pages": [
+  {
+   "n": 1,
+   "text": "The house is warm and quiet. Mim the little tabby kitten is not sleepy. Not one bit.",
+   "beat": "Mim wide awake in a cosy hallway, lamp glowing, apricot evening through the window.",
+   "text_pos": "bottom"
+  },
+  {
+   "n": 2,
+   "text": "The big ginger tom is asleep in the armchair. Mim tiptoes on.",
+   "beat": "Large orange tabby cat asleep in an armchair, Mim tiptoeing past.",
+   "text_pos": "bottom"
+  },
+  {
+   "n": 3,
+   "text": "The fluffy white Persian is asleep in a basket, like a cloud with ears.",
+   "beat": "Very fluffy white Persian cat in a round basket, Mim peeking over the edge.",
+   "text_pos": "bottom"
+  },
+  {
+   "n": 4,
+   "text": "The sleek Siamese is asleep on the radiator, warm as toast.",
+   "beat": "Cream Siamese cat with dark points stretched along a radiator under a window, Mim below.",
+   "text_pos": "bottom"
+  },
+  {
+   "n": 5,
+   "text": "The black cat is asleep on the piano. Shh, don't wake the keys.",
+   "beat": "Small black cat curled on top of an upright piano, Mim on the piano stool.",
+   "text_pos": "top"
+  },
+  {
+   "n": 6,
+   "text": "The calico cat is asleep on the stairs, one paw hanging down.",
+   "beat": "Orange, black and white calico cat on a stair, one paw dangling, Mim on the step below.",
+   "text_pos": "bottom"
+  },
+  {
+   "n": 7,
+   "text": "The enormous Maine Coon is asleep across the whole doormat.",
+   "beat": "Huge shaggy brown Maine Coon filling a doormat, tiny Mim beside him.",
+   "text_pos": "bottom"
+  },
+  {
+   "n": 8,
+   "text": "The old barn cat is asleep in the hay by the back door.",
+   "beat": "Scruffy grey-and-white old cat on a pile of hay by an open back door, rose sky outside.",
+   "text_pos": "bottom"
+  },
+  {
+   "n": 9,
+   "text": "Mim finds the kitchen. The milk bowl is empty. The clock goes tick, tock.",
+   "beat": "Mim looking into an empty bowl on a kitchen floor, a round wall clock above.",
+   "text_pos": "bottom"
+  },
+  {
+   "n": 10,
+   "text": "Mim finds the window. The moon looks in. \"Hello, moon,\" says Mim.",
+   "beat": "Mim on a windowsill looking up at a big moon, pale lavender sky (light, not dark blue).",
+   "text_pos": "top"
+  },
+  {
+   "n": 11,
+   "text": "Mim yawns a very small yawn. Then a bigger one.",
+   "beat": "Close-up of Mim mid-yawn on a rug.",
+   "text_pos": "bottom"
+  },
+  {
+   "n": 12,
+   "text": "Mim curls up in the ginger tom's warm armchair. Goodnight, kittens.",
+   "beat": "Mim curled up asleep against the ginger tom in the armchair, lamp glowing.",
+   "text_pos": "bottom"
+  }
+ ]
+}

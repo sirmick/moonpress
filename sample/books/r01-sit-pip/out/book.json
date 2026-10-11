@@ -1,0 +1,92 @@
+{
+ "slug": "r01-sit-pip",
+ "title": "Sit, Pip",
+ "set": "reading",
+ "cover": "cover.webp",
+ "pages": [
+  {
+   "n": 1,
+   "image": "p01.webp",
+   "text": "Pip.",
+   "text_pos": "bottom",
+   "word": "Pip"
+  },
+  {
+   "n": 2,
+   "image": "p02.webp",
+   "text": "Tip.",
+   "text_pos": "bottom",
+   "word": "Tip"
+  },
+  {
+   "n": 3,
+   "image": "p03.webp",
+   "text": "Sit, Pip.",
+   "text_pos": "bottom",
+   "word": "sit"
+  },
+  {
+   "n": 4,
+   "image": "p04.webp",
+   "text": "Tip sat.",
+   "text_pos": "bottom",
+   "word": "sat"
+  },
+  {
+   "n": 5,
+   "image": "p05.webp",
+   "text": "Pat, pat, Pip.",
+   "text_pos": "bottom",
+   "word": "pat"
+  },
+  {
+   "n": 6,
+   "image": "p06.webp",
+   "text": "Tap, tap, tap.",
+   "text_pos": "bottom",
+   "word": "tap"
+  },
+  {
+   "n": 7,
+   "image": "p07.webp",
+   "text": "Nap, Pip.",
+   "text_pos": "bottom",
+   "word": "nap"
+  },
+  {
+   "n": 8,
+   "image": "p08.webp",
+   "text": "A tin.",
+   "text_pos": "bottom",
+   "word": "tin"
+  },
+  {
+   "n": 9,
+   "image": "p09.webp",
+   "text": "Sip, sip, sip.",
+   "text_pos": "bottom",
+   "word": "sip"
+  },
+  {
+   "n": 10,
+   "image": "p10.webp",
+   "text": "Pip sat. Tip sat.",
+   "text_pos": "bottom",
+   "word": ""
+  },
+  {
+   "n": 11,
+   "image": "p11.webp",
+   "text": "Nap, Pip. Nap, Tip.",
+   "text_pos": "bottom",
+   "word": ""
+  },
+  {
+   "n": 12,
+   "image": "p12.webp",
+   "text": "Nap, nap, nap.",
+   "text_pos": "bottom",
+   "word": ""
+  }
+ ]
+}

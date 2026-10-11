@@ -1,0 +1,101 @@
+{
+ "slug": "r01-sit-pip",
+ "series": "reading",
+ "set": "reading",
+ "title": "Sit, Pip",
+ "cast": [
+  "Pip",
+  "Tip"
+ ],
+ "refrain": "",
+ "palette": "",
+ "sky": "",
+ "cover": "Pip the beagle pup sitting, looking at the reader. Big, simple and friendly.",
+ "style": "",
+ "pages": [
+  {
+   "n": 1,
+   "text": "Pip.",
+   "beat": "Pip the beagle pup sitting, looking at the reader.",
+   "text_pos": "bottom",
+   "word": "Pip"
+  },
+  {
+   "n": 2,
+   "text": "Tip.",
+   "beat": "Tip the ginger kitten sitting.",
+   "text_pos": "bottom",
+   "word": "Tip"
+  },
+  {
+   "n": 3,
+   "text": "Sit, Pip.",
+   "beat": "Pip sitting up straight and proud.",
+   "text_pos": "bottom",
+   "word": "sit"
+  },
+  {
+   "n": 4,
+   "text": "Tip sat.",
+   "beat": "Tip sitting down beside Pip.",
+   "text_pos": "bottom",
+   "word": "sat"
+  },
+  {
+   "n": 5,
+   "text": "Pat, pat, Pip.",
+   "beat": "Tip patting Pip's head with one paw.",
+   "text_pos": "bottom",
+   "word": "pat"
+  },
+  {
+   "n": 6,
+   "text": "Tap, tap, tap.",
+   "beat": "Pip tapping the floor with a paw, small motion marks.",
+   "text_pos": "bottom",
+   "word": "tap"
+  },
+  {
+   "n": 7,
+   "text": "Nap, Pip.",
+   "beat": "Pip lying down with eyes closed.",
+   "text_pos": "bottom",
+   "word": "nap"
+  },
+  {
+   "n": 8,
+   "text": "A tin.",
+   "beat": "A tin of food on the floor, Pip sniffing it.",
+   "text_pos": "bottom",
+   "word": "tin"
+  },
+  {
+   "n": 9,
+   "text": "Sip, sip, sip.",
+   "beat": "Tip sipping from a saucer.",
+   "text_pos": "bottom",
+   "word": "sip"
+  },
+  {
+   "n": 10,
+   "text": "Pip sat. Tip sat.",
+   "beat": "Pip and Tip sitting side by side.",
+   "text_pos": "bottom",
+   "word": ""
+  },
+  {
+   "n": 11,
+   "text": "Nap, Pip. Nap, Tip.",
+   "beat": "Both lying down, eyes closing.",
+   "text_pos": "bottom",
+   "word": ""
+  },
+  {
+   "n": 12,
+   "text": "Nap, nap, nap.",
+   "beat": "Both asleep, curled together.",
+   "text_pos": "bottom",
+   "word": ""
+  }
+ ]
+}

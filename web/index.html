@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Cpath d=%27M20 4a12 12 0 1 0 8 20A10 10 0 0 1 20 4z%27 fill=%27%23e8b84a%27/%3E%3C/svg%3E">
+<title>Nighttime Books</title>
+<meta name="description" content="Picture books for a Bigme HiBreak e-ink reader, made by Moonpress, shelved on Nightstand.">
+<style>
+:root { --bg: #e9e5dc; --panel: #fffdf8; --ink: #23211d; --muted: #6f6a62; --line: #cfc8ba; --bezel: #2b2a28; --accent: #3d6b8f; --accent-ink: #fff; --bad: #b3412f; --warn: #b8860b; --chip: #ece6da; }
+@media (prefers-color-scheme: dark) { :root { --bg: #1a1918; --panel: #25231f; --ink: #ece7de; --muted: #a39d93; --line: #3b3832; --bezel: #0d0d0c; --accent: #7fb0d6; --accent-ink: #111; --chip: #312e29; } }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.45 system-ui, sans-serif; }
+a { color: var(--accent); }
+button { font: inherit; color: var(--ink); background: var(--chip); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+button:hover:not(:disabled) { border-color: var(--accent); }
+button:disabled { opacity: .35; cursor: default; }
+button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.hidden { display: none !important; }
+.hint { color: var(--muted); font-size: 12px; }
+/* shelf */
+#shelf { max-width: 1100px; margin: 0 auto; padding: 28px 16px 48px; }
+#shelf h1 { font: 700 30px/1.15 Georgia, serif; margin: 0 0 4px; }
+#shelf .lede { color: var(--muted); margin: 0 0 20px; max-width: 70ch; }
+#shelf h2 { font: 700 18px Georgia, serif; margin: 26px 0 10px; }
+.covers { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 18px; }
+@media (max-width: 480px) { .covers { grid-template-columns: 1fr 1fr; gap: 12px; } }
+.covers a { text-decoration: none; color: inherit; display: grid; gap: 6px; position: relative; }
+.covers img { width: 100%; aspect-ratio: 1072 / 1448; object-fit: cover; display: block; background: #fff; border-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,.15), 0 6px 18px rgba(0,0,0,.12); transition: transform .15s; }
+.covers a:hover img { transform: translateY(-3px); }
+.covers .t { font: 700 14px/1.25 Georgia, serif; }
+.covers .k { color: var(--muted); font-size: 12px; }
+.covers .noimg { aspect-ratio: 1072 / 1448; display: grid; place-items: center; background: var(--chip); border-radius: 4px; color: var(--muted); font-size: 12px; }
+.badge { position: absolute; top: 6px; left: 6px; background: var(--warn); color: #fff; font-size: 11px; padding: 1px 7px; border-radius: 999px; }
+.badge.bad { background: var(--bad); }
+#shelf footer { margin-top: 36px; color: var(--muted); font-size: 13px; }
+/* reader */
+#reader { height: 100%; display: grid; grid-template-rows: 1fr auto; justify-items: center; gap: 10px; padding: max(12px, env(safe-area-inset-top)) 16px max(10px, env(safe-area-inset-bottom)); }
+.device { background: var(--bezel); padding: 14px; border-radius: 22px; align-self: center; height: min(100%, calc((100vw - 32px - 28px) * 1448 / 1072 + 28px)); display: flex; }
+@media (max-width: 520px) { .device { padding: 0; border-radius: 0; background: none; height: min(100%, calc((100vw - 32px) * 1448 / 1072)); } }
+#page { position: relative; height: 100%; aspect-ratio: 1072 / 1448; background: #fff; overflow: hidden; cursor: pointer; user-select: none; -webkit-user-select: none; touch-action: pan-y; }
+#page img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center; max-width: 100%; }
+.bar .title { font: 700 15px Georgia, serif; }
+.bar .count { color: var(--muted); font-variant-numeric: tabular-nums; min-width: 4.5em; text-align: center; }
+/* editor */
+#editor { max-width: 1200px; margin: 0 auto; padding: 16px; }
+#editor header { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-bottom: 12px; }
+#editor h1 { font: 700 22px Georgia, serif; margin: 0 8px 0 0; }
+#editor fieldset { border: 1px solid var(--line); border-radius: 8px; margin: 0 0 14px; padding: 12px; background: var(--panel); }
+#editor legend { font-weight: 600; padding: 0 6px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; }
+@media (max-width: 800px) { .grid2 { grid-template-columns: 1fr; } }
+.full { grid-column: 1 / -1; }
+.field { display: grid; gap: 3px; }
+.field > span { font-size: 12px; color: var(--muted); }
+input, textarea, select { font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 5px; padding: 5px 7px; width: 100%; }
+textarea { resize: vertical; min-height: 50px; }
+.pages { display: grid; gap: 10px; }
+.pg { display: grid; grid-template-columns: 150px 1fr; gap: 10px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 8px; }
+@media (max-width: 640px) { .pg { grid-template-columns: 1fr; } }
+.pg .pic { position: relative; aspect-ratio: 1072 / 1448; background: var(--chip); border-radius: 4px; overflow: hidden; cursor: zoom-in; }
+.pg .pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pg .pic .ph { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 12px; }
+.pg .f { display: grid; gap: 6px; }
+.pg .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 12px; color: var(--muted); }
+.pg .row b { color: var(--ink); }
+.pg .verdict { padding: 1px 7px; border-radius: 999px; background: var(--chip); }
+.pg .verdict.proposed { background: var(--bad); color: #fff; }
+.pg .verdict.fixed, .pg .verdict.redrawn { background: var(--warn); color: #fff; }
+.pg .stale { color: var(--bad); font-weight: 600; }
+#status { color: var(--muted); font-size: 13px; }
+#status.bad { color: var(--bad); }
+#lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.85); display: none; place-items: center; z-index: 20; padding: 20px; cursor: zoom-out; }
+#lightbox.on { display: grid; }
+#lightbox img { max-height: calc(100vh - 40px); max-width: 100%; }
+#toast { position: fixed; left: 50%; bottom: 70px; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 6px 14px; border-radius: 999px; font-size: 13px; opacity: 0; transition: opacity .2s; pointer-events: none; }
+#toast.on { opacity: 1; }
+</style>
+</head>
+<body>
+<section id="shelf" class="hidden">
+  <h1>Nighttime Books</h1>
+  <p class="lede">Twelve-page picture books read on a Bigme HiBreak colour e-ink tablet, exactly as the device shows them.
+    Tap the right side of a page to go forward, the left side to go back.</p>
+  <div id="sets"></div>
+  <footer>Made with <a href="https://github.com/sirmick/moonpress">Moonpress</a> · shelved on <a href="https://github.com/sirmick/nightstand">Nightstand</a> · <span id="mode"></span></footer>
+</section>
+
+<section id="reader" class="hidden">
+  <div class="device"><div id="page" aria-live="polite"></div></div>
+  <div class="bar">
+    <button id="home" title="All books">☰ Books</button>
+    <button id="prev" aria-label="Previous page">‹</button>
+    <span class="count" id="count"></span>
+    <button id="next" aria-label="Next page">›</button>
+    <button id="edit" class="hidden">Edit</button>
+    <button id="share" title="Copy a link to this page">Copy link</button>
+  </div>
+</section>
+
+<section id="editor" class="hidden"></section>
+<div id="lightbox"><img alt=""></div>
+<div id="toast"></div>
+
+<script>
+"use strict";
+const $ = (s, el = document) => el.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const PUBLIC = "https://sirmick.github.io/nightstand/";
+let api = false, base = "", catalog = null, apiBooks = null;
+let slug = null, book = null, state = null, series = null, etag = null, pageNo = 0, images = [], reading = false;
+
+async function boot() {
+  const q = new URLSearchParams(location.search);
+  base = q.get("content") || "";
+  try { const r = await fetch("api/books"); if (r.ok) { api = true; apiBooks = await r.json(); } } catch {}
+  if (!api && !base) base = PUBLIC;
+  if (base && !base.endsWith("/")) base += "/";
+  try { catalog = await fetch(base + "catalog.json", { cache: "no-store" }).then(r => r.ok ? r.json() : null); } catch {}
+  $("#mode").textContent = api ? "editing a local checkout" : "reading from " + base.replace(/^https?:\/\//, "");
+  window.addEventListener("popstate", route);
+  route();
+}
+
+function route() {
+  const q = new URLSearchParams(location.search);
+  const s = q.get("book"), mode = q.get("mode");
+  if (s && mode === "edit" && api) return openEditor(s);
+  if (s) return openBook(s, Math.max(0, parseInt(q.get("p") || "0", 10) || 0));
+  showShelf();
+}
+function nav(qs) { history.pushState(null, "", qs); route(); }
+
+/* ---------- shelf ---------- */
+function showShelf() {
+  document.title = "Nighttime Books";
+  for (const id of ["reader", "editor"]) $("#" + id).classList.add("hidden");
+  $("#shelf").classList.remove("hidden");
+  const entries = api ? apiBooks : (catalog?.books || []);
+  const groups = {};
+  for (const b of entries) (groups[b.series || b.set] ||= []).push(b);
+  $("#sets").innerHTML = Object.entries(groups).map(([name, list]) => `<h2>${esc(name)}</h2><div class="covers">` + list.map(b => {
+    const packaged = api ? b.packaged : true;
+    const img = packaged ? `<img src="${base}books/${esc(b.slug)}/view/cover.webp" alt="" loading="lazy">` : `<div class="noimg">no pictures yet</div>`;
+    const badge = api && b.proposed?.length ? `<span class="badge bad">${b.proposed.length} to fix</span>` : api && b.stale ? `<span class="badge">${b.stale} stale</span>` : "";
+    const href = packaged ? `?book=${encodeURIComponent(b.slug)}` : `?book=${encodeURIComponent(b.slug)}&mode=edit`;
+    return `<a href="${href}">${img}${badge}<span class="t">${esc(b.title || b.slug)}</span><span class="k">${esc(b.set)}${api ? ` · ${b.images}/${b.of} pictures` : ""}</span></a>`;
+  }).join("") + `</div>`).join("");
+}
+$("#sets").addEventListener("click", e => { const a = e.target.closest("a"); if (!a || e.metaKey || e.ctrlKey) return; e.preventDefault(); nav(a.getAttribute("href")); });
+
+/* ---------- reader: shows the composites the renderer made, so it is what the device shows ---------- */
+async function loadBook(s) {
+  if (slug === s && book) return;
+  if (api) { const d = await fetch(`api/books/${s}`).then(r => r.json()); book = d.book; state = d.state; series = d.series; etag = d.etag; }
+  else { book = await fetch(`${base}books/${s}/book.json`, { cache: "no-store" }).then(r => r.json()); state = null; series = null; etag = null; }
+  slug = s; reading = (book.set || "bedtime") === "reading";
+}
+async function openBook(s, p) {
+  await loadBook(s);
+  const keys = ["cover", ...book.pages.map(pg => "p" + String(pg.n).padStart(2, "0"))];
+  images = keys.map(k => { const im = new Image(); im.src = `${base}books/${s}/view/${k}.webp?v=${state?.package?.hash || ""}`; im.alt = ""; return im; });
+  document.title = `${book.title} · Nighttime Books`;
+  for (const id of ["shelf", "editor"]) $("#" + id).classList.add("hidden");
+  $("#reader").classList.remove("hidden");
+  $("#edit").classList.toggle("hidden", !api);
+  show(Math.min(p, book.pages.length));
+}
+function show(n) {
+  pageNo = n;
+  const url = `?book=${encodeURIComponent(slug)}${n ? "&p=" + n : ""}`;
+  if (location.search !== url) history.replaceState(null, "", url);
+  const el = $("#page"); el.innerHTML = ""; el.append(images[n]);
+  $("#count").textContent = n === 0 ? "cover" : `${n} / ${book.pages.length}`;
+  $("#prev").disabled = n === 0;
+  el.setAttribute("aria-label", n === 0 ? `${book.title}, cover` : `Page ${n}: ${book.pages[n - 1].text}`);
+}
+function go(d) {
+  const n = pageNo + d;
+  if (n < 0) return;
+  if (n > book.pages.length) { nav(location.pathname); return; }   // past the end -> shelf, like the app
+  show(n);
+}
+$("#page").addEventListener("click", e => { const r = e.currentTarget.getBoundingClientRect(); go((e.clientX - r.left) / r.width < 1 / 3 ? -1 : 1); });
+let sx = null;
+$("#page").addEventListener("touchstart", e => { sx = e.touches[0].clientX; }, { passive: true });
+$("#page").addEventListener("touchend", e => { if (sx === null) return; const dx = e.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1); });
+$("#prev").onclick = () => go(-1);
+$("#next").onclick = () => go(1);
+$("#home").onclick = () => nav(location.pathname);
+$("#edit").onclick = () => nav(`?book=${encodeURIComponent(slug)}&mode=edit`);
+$("#share").onclick = async () => { try { await navigator.clipboard.writeText(location.href); toast("Link copied"); } catch { prompt("Copy this link:", location.href); } };
+document.addEventListener("keydown", e => {
+  if (!$("#reader").classList.contains("hidden")) {
+    if (["ArrowRight", " ", "PageDown"].includes(e.key)) { e.preventDefault(); go(1); }
+    else if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); go(-1); }
+    else if (e.key === "Escape") $("#home").click();
+  } else if (e.key === "Escape") $("#lightbox").classList.remove("on");
+});
+
+/* ---------- editor (only when served by `moonpress serve`) ---------- */
+let dirty = false;
+const field = (k, name, type = "input", cls = "") => `<label class="field ${cls}"><span>${name}</span>` +
+  (type === "textarea" ? `<textarea data-k="${k}">${esc(book[k])}</textarea>` : `<input data-k="${k}" value="${esc(book[k])}">`) + `</label>`;
+const key = n => "p" + String(n).padStart(2, "0");
+
+async function openEditor(s) {
+  slug = null; await loadBook(s);
+  document.title = `${book.title || slug} · edit`;
+  for (const id of ["shelf", "reader"]) $("#" + id).classList.add("hidden");
+  const ed = $("#editor"); ed.classList.remove("hidden");
+  const eff = v => v || `<em>(from series)</em>`;
+  ed.innerHTML = `
+  <header><h1>${esc(book.title || slug)}</h1>
+    <button id="back">☰ Books</button><button id="read" ${state?.package ? "" : "disabled"}>Read</button>
+    <button id="save" class="primary" disabled>Save</button><button id="commit">Commit &amp; push</button>
+    <span id="status">${state?.spend ? `$${state.spend.toFixed(2)} spent on this book` : ""}</span></header>
+  <fieldset><legend>Book</legend><div class="grid2">
+    <label class="field"><span>Slug</span><input value="${esc(slug)}" disabled></label>
+    <label class="field"><span>Set</span><select data-k="set"><option value="bedtime"${reading ? "" : " selected"}>bedtime</option><option value="reading"${reading ? " selected" : ""}>reading</option></select></label>
+    ${field("title", "Title", "input", "full")}
+    ${field("synopsis", "Synopsis (for the writer)", "textarea", "full")}
+    ${series?.character ? `<div class="field full"><span>Main character (from the series)</span><div class="hint">${esc(series.character)}</div></div>` : field("character", "Main character", "textarea", "full")}
+    ${field("refrain", "Refrain")}${field("palette", "Palette")}
+    ${field("sky", "Sky / light arc", "input", "full")}
+    ${field("cover", "Cover scene", "textarea", "full")}
+    ${series?.style ? `<div class="field full"><span>Style (from the series)</span><div class="hint">${esc(series.style)}</div></div>` : field("style", "Style (goes into every prompt)", "textarea", "full")}
+  </div></fieldset>
+  <fieldset><legend>Pages</legend><div class="pages" id="pages"></div>
+    <div style="margin-top:8px"><button id="addPage">Add page</button> <button id="delPage">Remove last page</button></div></fieldset>
+  <p class="hint">Saving writes <code>books/${esc(slug)}/book.json</code> in the content checkout. Pictures are made from the terminal: <code>moonpress draw ${esc(slug)}</code>, then <code>moonpress inspect ${esc(slug)}</code> and <code>moonpress publish</code>.</p>`;
+  renderPages();
+  $("#back").onclick = () => confirmLeave() && nav(location.pathname);
+  $("#read").onclick = () => confirmLeave() && nav(`?book=${encodeURIComponent(slug)}`);
+  $("#save").onclick = save;
+  $("#commit").onclick = commit;
+  $("#addPage").onclick = () => { book.pages.push({ n: book.pages.length + 1, text: "", beat: "", text_pos: "bottom", ...(reading ? { word: "" } : {}) }); touch(); renderPages(); };
+  $("#delPage").onclick = () => { if (book.pages.length > 1 && confirm("Remove the last page?")) { book.pages.pop(); touch(); renderPages(); } };
+  ed.oninput = e => {
+    const t = e.target;
+    if (t.dataset.k) { book[t.dataset.k] = t.value; if (t.dataset.k === "set") { reading = t.value === "reading"; renderPages(); } touch(); }
+    else if (t.dataset.p !== undefined) { book.pages[+t.dataset.p][t.dataset.f] = t.value; touch(); }
+  };
+}
+function touch() { dirty = true; $("#save").disabled = false; }
+function confirmLeave() { return !dirty || confirm("Discard unsaved changes?"); }
+window.addEventListener("beforeunload", e => { if (dirty) e.preventDefault(); });
+
+function renderPages() {
+  const el = $("#pages");
+  el.innerHTML = book.pages.map((p, i) => {
+    const k = key(p.n), st = state?.pages?.[k] || {}, has = st.image && true;
+    const v = st.inspect?.verdict;
+    const act = st.inspect?.action;
+    return `<div class="pg" data-key="${k}">
+      <div class="pic" data-prev="${k}">${has ? `<img src="api/books/${esc(slug)}/preview/${k}?v=${Date.now()}" alt="">` : `<div class="ph">no picture</div>`}</div>
+      <div class="f">
+        <div class="row"><b>Page ${p.n}</b>
+          ${st.image?.stale ? `<span class="stale">stale: the prompt changed since this was drawn</span>` : ""}
+          ${v ? `<span class="verdict ${esc(v)}" title="${esc(JSON.stringify(st.inspect.checks))}">${esc(v)}${act && act.do !== "ok" ? `: ${esc(act.do)} ${esc(act.instruction || act.reason || act.to || "")}` : ""}</span>` : ""}
+          ${st.edit && Object.keys(st.edit).length ? `<span>override: ${esc(JSON.stringify(st.edit))} <button data-clear="${k}" style="padding:0 8px">clear</button></span>` : ""}
+          ${st.image?.cost ? `<span>$${(+st.image.cost).toFixed(3)}</span>` : ""}
+          ${has ? `<button data-refresh="${k}" style="padding:0 8px">preview</button>` : ""}</div>
+        ${reading ? `<label class="field"><span>Big word</span><input data-p="${i}" data-f="word" value="${esc(p.word)}"></label>` : ""}
+        <label class="field"><span>Text (drawn by the app)</span><textarea data-p="${i}" data-f="text">${esc(p.text)}</textarea></label>
+        <label class="field"><span>Image beat (for the illustrator)</span><textarea data-p="${i}" data-f="beat">${esc(p.beat)}</textarea></label>
+        <label class="field" style="max-width:160px"><span>Panel</span><select data-p="${i}" data-f="text_pos"><option${p.text_pos === "bottom" ? " selected" : ""}>bottom</option><option${p.text_pos === "top" ? " selected" : ""}>top</option></select></label>
+      </div></div>`;
+  }).join("");
+  el.querySelectorAll("[data-refresh]").forEach(b => b.onclick = () => refreshPreview(b.dataset.refresh));
+  el.querySelectorAll("[data-clear]").forEach(b => b.onclick = async () => { await fetch(`api/books/${slug}/override/${b.dataset.clear}`, { method: "DELETE" }); delete state.pages[b.dataset.clear].edit; renderPages(); });
+  el.querySelectorAll("[data-prev] img").forEach(im => im.onclick = () => { $("#lightbox img").src = im.src; $("#lightbox").classList.add("on"); });
+}
+function refreshPreview(k) {
+  const p = book.pages.find(pg => key(pg.n) === k); if (!p) return;
+  const q = new URLSearchParams({ text: p.text, word: p.word || "", text_pos: p.text_pos, v: Date.now() });
+  const im = $(`[data-prev="${k}"] img`); if (im) im.src = `api/books/${slug}/preview/${k}?${q}`;
+}
+async function save() {
+  const r = await fetch(`api/books/${slug}`, { method: "PUT", headers: { "Content-Type": "application/json", "If-Match": etag || "" }, body: JSON.stringify(book, null, 1) });
+  const d = await r.json();
+  if (!r.ok) { $("#status").textContent = d.error; $("#status").classList.add("bad"); return; }
+  etag = d.etag; dirty = false; $("#save").disabled = true; $("#status").classList.remove("bad"); $("#status").textContent = "saved"; toast("Saved");
+}
+async function commit() {
+  if (dirty) await save();
+  const msg = prompt("Commit message:", `Edit ${slug}`); if (!msg) return;
+  const r = await fetch("api/git/commit", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ message: msg }) });
+  const d = await r.json();
+  if (!r.ok) { alert(d.error + "\n" + (d.output || "")); return; }
+  toast("Committed and pushed");
+}
+$("#lightbox").onclick = () => $("#lightbox").classList.remove("on");
+let tt;
+function toast(s) { const t = $("#toast"); t.textContent = s; t.classList.add("on"); clearTimeout(tt); tt = setTimeout(() => t.classList.remove("on"), 1400); }
+
+boot().catch(e => { document.body.innerHTML = `<p style="padding:24px">Could not load the books (${esc(e.message)}). Serve this page over http, or pass ?content=&lt;url of a Nightstand&gt;.</p>`; });
+</script>
+</body>
+</html>

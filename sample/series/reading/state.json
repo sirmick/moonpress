@@ -1,0 +1,21 @@
+{
+ "v": 1,
+ "refs": {
+  "Pip": {
+   "inputs": "62084ed8e253",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt": "Character reference sheet for a children's learn-to-read picture book. Very simple, bold, clean picture-book illustration for a child learning to read: flat colours, thick soft black outlines, big rounded shapes, plain cream background with at most one prop, nothing in the picture that is not in the sentence, no scenery, no gradients, no texture, no photorealism. Limited palette of five muted colours plus cream. Dark colours only in outlines and small accents. Friendly, calm mood. No text, letters or numbers anywhere in the image. Palette: cream, warm grey, ginger orange, soft blue, grass green.. Animals keep their natural colours. Show the same character three times on a plain cream background: sitting facing the viewer, standing side view, and curled up asleep. The character: Pip, a small brown-and-white beagle puppy with floppy ears and a red collar. Identical colours, markings and proportions in all three.",
+   "cost": 0,
+   "imported": true,
+   "stale": false
+  },
+  "Tip": {
+   "inputs": "45519909fb95",
+   "model": "google/gemini-3.1-flash-image",
+   "prompt": "Character reference sheet for a children's learn-to-read picture book. Very simple, bold, clean picture-book illustration for a child learning to read: flat colours, thick soft black outlines, big rounded shapes, plain cream background with at most one prop, nothing in the picture that is not in the sentence, no scenery, no gradients, no texture, no photorealism. Limited palette of five muted colours plus cream. Dark colours only in outlines and small accents. Friendly, calm mood. No text, letters or numbers anywhere in the image. Palette: cream, warm grey, ginger orange, soft blue, grass green.. Animals keep their natural colours. Show the same character three times on a plain cream background: sitting facing the viewer, standing side view, and curled up asleep. The character: Tip, a small ginger kitten with white paws and big round eyes. Identical colours, markings and proportions in all three.",
+   "cost": 0,
+   "imported": true,
+   "stale": false
+  }
+ }
+}
