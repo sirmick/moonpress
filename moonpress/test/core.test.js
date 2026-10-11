@@ -50,6 +50,7 @@ test('templates reproduce the prompts the sample pictures were made with', () =>
   legacy.t.bedtime.page = legacy.t.bedtime.page.replace(/ An opaque text panel.*$/, ' Keep the {{text_pos}} quarter of the image simple and uncluttered (plain ground, water or sky) because a text panel will be drawn there.');
   legacy.t.reading.page = legacy.t.reading.page
     .replace(', with the characters large and centred in the upper part of the picture', '')
+    .replace(' Each character appears exactly once, in one pose, never as a sheet of several poses.', '')
     .replace(/ Keep the lower 40%.*$/, ' Keep the bottom third of the image plain cream because a large text panel will be drawn there.');
   const norm = s => s.replace(/\.\.+/g, '.');
   for (const slug of ['kittens', 'r01-sit-pip']) {
