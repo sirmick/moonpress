@@ -62,20 +62,33 @@ export function frameFor(kind, width = W) {
  * over every page of a book to hide inconsistent edges in the model's pictures. `width` is the fade in
  * pixels, `radius` rounds the inner corners (0 for square), `colour` is any CSS colour.
  */
-export function makeMask({ colour = '#fff', fade = 160, radius = 0, width = W, height = H } = {}) {
+export function makeMask({ colour = '#fff', fade = 110, radius = 0, wobble = 0.35, gamma = 2, grain = 0.05, seed = 1, width = W, height = H } = {}) {
   const c = createCanvas(width, height), g = c.getContext('2d');
   g.fillStyle = colour; g.fillRect(0, 0, width, height);
   const id = g.getImageData(0, 0, width, height), d = id.data;
   const hx = width / 2, hy = height / 2, r = Math.max(0, Math.min(radius, hx, hy));
+  // Seeded pseudo-random, so the same flags give the same PNG.
+  let s = (seed * 2654435761) >>> 0;
+  const rnd = () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
+  // Slow waves along x and y give the fade an organic, hand-painted unevenness instead of a ruler edge.
+  const waves = Array.from({ length: 5 }, (_, i) => ({ fx: (0.6 + rnd() * 1.4) * (i + 1) / width, fy: (0.6 + rnd() * 1.4) * (i + 1) / height,
+                                                       px: rnd() * Math.PI * 2, py: rnd() * Math.PI * 2, a: 1 / (i + 1) }));
+  const noise = (x, y) => {
+    let n = 0, norm = 0;
+    for (const w of waves) { n += w.a * Math.sin(x * w.fx * Math.PI * 2 + w.px) * Math.cos(y * w.fy * Math.PI * 2 + w.py); norm += w.a; }
+    return n / norm;                                           // roughly -1..1
+  };
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       // Signed distance to a rounded rectangle the size of the page; negative inside.
       const qx = Math.abs(x + 0.5 - hx) - (hx - r), qy = Math.abs(y + 0.5 - hy) - (hy - r);
       const dist = Math.hypot(Math.max(qx, 0), Math.max(qy, 0)) + Math.min(Math.max(qx, qy), 0) - r;
       const inside = -dist;                                    // distance in from the edge
-      const t = Math.min(1, Math.max(0, inside / fade));
-      const alpha = 1 - t * t * (3 - 2 * t);                   // smoothstep: opaque at the edge, clear past the fade
-      d[(y * width + x) * 4 + 3] = Math.round(alpha * 255);
+      const local = fade * (1 + wobble * noise(x, y));         // the fade's reach wanders along the edge
+      const t = Math.min(1, Math.max(0, inside / Math.max(8, local)));
+      let alpha = Math.pow(1 - t, gamma);                      // eased: faint for most of the fade, solid only right at the edge
+      if (grain) alpha *= 1 + (rnd() - 0.5) * 2 * grain;       // a little paper grain so the ramp is not a gradient
+      d[(y * width + x) * 4 + 3] = Math.round(Math.min(1, Math.max(0, alpha)) * 255);
     }
   }
   g.putImageData(id, 0, 0);

@@ -49,7 +49,8 @@ const USAGE = `moonpress: makes illustrated picture books for the Nighttime Book
   --workers n       parallel image calls (default 3)
   --out <file>      bundle html: where to write
   --port n          serve: port (default 8787)
-  --colour <css>    mask: the edge colour (default white); --fade <px> how far it fades in (default 160); --radius <px> inner corner rounding (default 0)
+  --colour <css>    mask: the edge colour (default white); --fade <px> how far it reaches in (default 110);
+                    --wobble 0..1 how unevenly (default 0.35); --seed n another unevenness; --radius <px> inner corner rounding
 `;
 
 const { values: f, positionals } = parseArgs({
@@ -59,7 +60,7 @@ const { values: f, positionals } = parseArgs({
     redo: { type: 'string' }, force: { type: 'boolean' }, auto: { type: 'boolean' }, 'max-regens': { type: 'string' },
     candidates: { type: 'string' }, 'model-text': { type: 'string' }, 'model-vision': { type: 'string' }, 'model-image': { type: 'string' },
     workers: { type: 'string' }, out: { type: 'string' }, port: { type: 'string' }, help: { type: 'boolean', short: 'h' },
-    colour: { type: 'string' }, fade: { type: 'string' }, radius: { type: 'string' },
+    colour: { type: 'string' }, fade: { type: 'string' }, radius: { type: 'string' }, wobble: { type: 'string' }, seed: { type: 'string' },
   },
 });
 const [cmd, ...args] = positionals;
@@ -125,7 +126,8 @@ try {
     case 'status': await status(args[0]); break;
     case 'mask': {
       const name = args[0]; if (!name || !/^[a-z0-9-]+$/.test(name)) throw new Error('mask <name> (letters, digits, dashes)');
-      const png = await makeMask({ colour: f.colour || '#fff', fade: +(f.fade || 160), radius: +(f.radius || 0) });
+      const png = await makeMask({ colour: f.colour || '#fff', fade: +(f.fade || 110), radius: +(f.radius || 0),
+                                   wobble: +(f.wobble ?? 0.35), seed: +(f.seed || 1) });
       writeBytes(store.maskPath(name), png);
       log(`wrote ${store.maskPath(name)} (${(png.length / 1024).toFixed(0)} KB). Use it with "mask": "masks/${name}.png" in a book or series.`);
       break;
