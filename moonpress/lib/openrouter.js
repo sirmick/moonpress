@@ -105,13 +105,21 @@ export class OpenRouter {
     if (temperature !== undefined) body.temperature = temperature;
     if (schema) body.response_format = { type: 'json_schema', json_schema: { name: schemaName, strict: true, schema } };
     const t = Date.now();
-    const d = await this.post(body);
-    const msg = d.choices?.[0]?.message || {};
-    const text = typeof msg.content === 'string' ? msg.content : (msg.content || []).map(c => c.text || '').join('');
-    const out = { text, cost: d.usage?.cost || 0, usage: d.usage, seconds: Math.round((Date.now() - t) / 100) / 10, model: d.model || model };
-    if (schema) out.json = extractJson(text);
-    this.log(`  ${model}  $${out.cost.toFixed(4)}  ${out.seconds}s`);
-    return out;
+    let cost = 0, lastErr;
+    for (let attempt = 0; attempt < 2; attempt++) {           // a reply that is not valid JSON is asked for again, once
+      const d = await this.post(body);
+      const msg = d.choices?.[0]?.message || {};
+      const text = typeof msg.content === 'string' ? msg.content : (msg.content || []).map(c => c.text || '').join('');
+      cost += d.usage?.cost || 0;
+      const out = { text, cost, usage: d.usage, seconds: Math.round((Date.now() - t) / 100) / 10, model: d.model || model };
+      if (schema) {
+        try { out.json = extractJson(text); }
+        catch (e) { lastErr = e; this.log(`  ${model}: reply was not valid JSON (${e.message.slice(0, 60)}), asking again`); continue; }
+      }
+      this.log(`  ${model}  $${cost.toFixed(4)}  ${out.seconds}s`);
+      return out;
+    }
+    throw new Error(`${model} did not return valid JSON: ${lastErr?.message}`);
   }
 
   /**

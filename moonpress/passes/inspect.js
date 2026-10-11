@@ -59,7 +59,8 @@ export async function inspectBook(store, slug, { or, prompts, cfg, auto = false,
     let passes = 0;
     while (true) {
       const inputs = inspectInputs(store, slug, key, page, state);
-      if (!force && entry.inspect?.in === inputs && passes === 0) { report.push({ key, ...entry.inspect, skipped: true }); break; }
+      // Unchanged since last time: skip, unless the last verdict was a redraw that never got its second look.
+      if (!force && entry.inspect?.in === inputs && entry.inspect.verdict !== 'redrawn' && passes === 0) { report.push({ key, ...entry.inspect, skipped: true }); break; }
       const comp = await renderFor(store, book, key, state, h.set);
       const refs = refPaths(store, book, series, jobs[key]).filter(r => fs.existsSync(r.path)).map(r => ({ buffer: fs.readFileSync(r.path), mime: 'image/webp' }));
       const user = [
