@@ -33,4 +33,5 @@ Then choose one action, the cheapest that fixes the worst problem:
   edit can fix, or the character does not match the reference. `reason` says what went wrong so
   the next attempt can avoid it.
 
-Reply with JSON only, matching the schema you are given.
+Reply with JSON only, matching the schema you are given. Inside string values use no double quotes
+at all (write the words plainly or use single quotes).

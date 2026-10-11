@@ -21,6 +21,16 @@ test('stamps are stable across key order and whitespace', () => {
   assert.notEqual(stamp({ a: 1 }), stamp({ a: 2 }));
 });
 
+test('model JSON with stray quotes and prose around it still parses', async () => {
+  const { extractJson } = await import('../lib/openrouter.js');
+  assert.deepEqual(extractJson('Here you go:\n```json\n{"a": 1}\n```'), { a: 1 });
+  const broken = '{"checks": {"text": "the sign says "OPEN" in red", "panel": "ok"}, "action": {"do": "edit", "instruction": "Remove the word "OPEN"."}}';
+  const fixed = extractJson(broken);
+  assert.equal(fixed.checks.text, 'the sign says "OPEN" in red');
+  assert.equal(fixed.action.instruction, 'Remove the word "OPEN".');
+  assert.throws(() => extractJson('   '), /empty reply/);
+});
+
 test('blob sha matches git', () => {
   // `echo -n hello | git hash-object --stdin`
   assert.equal(blobSha(Buffer.from('hello')), 'b6fc4c620b67d95f953a5c1c1230aaab5db5a1b0');

@@ -73,6 +73,7 @@ export async function inspectBook(store, slug, { or, prompts, cfg, auto = false,
         h.frame !== 'full' ? `This book's pages all have a white ${h.frame} frame around the picture; that is by design, not a problem.` : '',
         h.mask ? 'Every page of this book has a soft fade to a plain colour at the edges; that is by design, not a problem.' : '',
         h.set === 'reading' ? `Characters expected: ${(jobs[key].vars.names || []).join(', ') || 'none'}.` : `Main character: ${h.character}`,
+        `The book's art style, which the picture is meant to follow: ${h.style} Judge contrast against that style: where it calls for dark skies or dark ink areas, those are intended and not a problem.`,
         'The first image is the page as the child sees it. The following image(s) are the character reference sheet(s).',
       ].filter(Boolean).join('\n');
       const r = await or.chat({ model: cfg.modelVision, system: prompts.inspect, user, images: [{ buffer: comp, mime: 'image/webp' }, ...refs],

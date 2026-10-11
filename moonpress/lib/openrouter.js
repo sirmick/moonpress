@@ -30,14 +30,40 @@ export function extFor(mime) { return { 'image/png': 'png', 'image/jpeg': 'jpg',
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-/** Pull the first JSON object out of a reply that may have prose around it. */
+/**
+ * Escape double quotes that sit inside string values: the usual way a model breaks its own JSON
+ * (`"note": "Olive says "hello" here"`). A quote inside a string is one that is not followed, after
+ * whitespace, by a structural character.
+ */
+export function repairJson(src) {
+  let out = '', inStr = false;
+  for (let i = 0; i < src.length; i++) {
+    const ch = src[i];
+    if (!inStr) { if (ch === '"') inStr = true; out += ch; continue; }
+    if (ch === '\\') { out += ch + (src[i + 1] ?? ''); i++; continue; }
+    if (ch === '"') {
+      const next = src.slice(i + 1).match(/^\s*([,}\]:]|$)/);
+      if (next) { inStr = false; out += ch; } else out += '\\"';
+      continue;
+    }
+    if (ch === '\n') { out += '\\n'; continue; }
+    out += ch;
+  }
+  return out;
+}
+
+/** Pull the first JSON object out of a reply that may have prose around it, repairing the common slips. */
 export function extractJson(text) {
-  try { return JSON.parse(text); } catch {}
+  const candidates = [text];
   const m = text.match(/```(?:json)?\s*([\s\S]*?)```/);
-  if (m) { try { return JSON.parse(m[1]); } catch {} }
+  if (m) candidates.push(m[1]);
   const a = text.indexOf('{'), b = text.lastIndexOf('}');
-  if (a >= 0 && b > a) return JSON.parse(text.slice(a, b + 1));
-  throw new Error('no JSON in reply: ' + text.slice(0, 200));
+  if (a >= 0 && b > a) candidates.push(text.slice(a, b + 1));
+  for (const c of candidates) {
+    try { return JSON.parse(c); } catch {}
+    try { return JSON.parse(repairJson(c)); } catch {}
+  }
+  throw new Error(text.trim() ? 'no JSON in reply: ' + text.slice(0, 200) : 'empty reply');
 }
 
 export class OpenRouter {
@@ -106,7 +132,7 @@ export class OpenRouter {
     if (schema) body.response_format = { type: 'json_schema', json_schema: { name: schemaName, strict: true, schema } };
     const t = Date.now();
     let cost = 0, lastErr;
-    for (let attempt = 0; attempt < 2; attempt++) {           // a reply that is not valid JSON is asked for again, once
+    for (let attempt = 0; attempt < 3; attempt++) {           // a reply that is not valid JSON is asked for again, twice
       const d = await this.post(body);
       const msg = d.choices?.[0]?.message || {};
       const text = typeof msg.content === 'string' ? msg.content : (msg.content || []).map(c => c.text || '').join('');
