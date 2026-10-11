@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { stamp, stampBytes } from '../lib/stamp.js';
-import { headerVars, pageOut, planOut, pageKeys, backfillFraming } from '../lib/book.js';
+import { planOut, backfillFraming } from '../lib/book.js';
 import { loadPrompts, imageJobs, seriesJobs } from '../lib/prompts.js';
 import { refPaths, refStamps, imageInputs } from '../lib/images.js';
 import { writeBytes } from '../lib/store.js';
@@ -102,11 +102,12 @@ export async function importLegacy(store, from, { log = () => {}, model = 'googl
     store.writeBook(slug, book);
 
     const state = store.state(slug);
-    const hv = headerVars(book, series);
     state.plan = { in: stamp({ imported: true }), out: stamp(planOut(book)) };
+    // No write stamps: the imported pages were written by a human, and a page without a write stamp
+    // is human-owned, so pass 2 never rewrites it however the header changes.
     for (const p of book.pages) {
       const key = `p${String(p.n).padStart(2, '0')}`;
-      state.pages[key] = { ...(state.pages[key] || {}), write: { in: stamp({ ...hv, n: p.n }), out: stamp(pageOut(p)) } };
+      if (state.pages[key]?.write) delete state.pages[key].write;
     }
 
     // pictures, where the old examples had them
