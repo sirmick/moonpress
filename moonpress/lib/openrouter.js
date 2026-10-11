@@ -137,6 +137,11 @@ export class OpenRouter {
       const msg = d.choices?.[0]?.message || {};
       const text = typeof msg.content === 'string' ? msg.content : (msg.content || []).map(c => c.text || '').join('');
       cost += d.usage?.cost || 0;
+      if (!text.trim()) {
+        const why = d.choices?.[0]?.finish_reason || d.choices?.[0]?.native_finish_reason || '?';
+        this.log(`  ${model}: empty reply (finish: ${why}, reasoning tokens: ${d.usage?.completion_tokens_details?.reasoning_tokens ?? '?'}), asking again`);
+        lastErr = new Error(`empty reply (finish: ${why})`); continue;
+      }
       const out = { text, cost, usage: d.usage, seconds: Math.round((Date.now() - t) / 100) / 10, model: d.model || model };
       if (schema) {
         try { out.json = extractJson(text); }

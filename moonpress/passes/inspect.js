@@ -77,7 +77,7 @@ export async function inspectBook(store, slug, { or, prompts, cfg, auto = false,
         'The first image is the page as the child sees it. The following image(s) are the character reference sheet(s).',
       ].filter(Boolean).join('\n');
       const r = await or.chat({ model: cfg.modelVision, system: prompts.inspect, user, images: [{ buffer: comp, mime: 'image/webp' }, ...refs],
-                                schema: SCHEMA, schemaName: 'inspection', maxTokens: 800, estimate: 0.02 });
+                                schema: SCHEMA, schemaName: 'inspection', maxTokens: 4000, estimate: 0.02 });
       if (r.dry) { log(`  [dry run] would inspect ${slug}/${key}`); break; }
       cost += r.cost;
       const { checks, action } = r.json;
