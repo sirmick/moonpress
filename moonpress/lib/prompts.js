@@ -22,6 +22,9 @@ export function fill(tpl, vars) {
   return tpl.replace(/\{\{(\w+)\}\}/g, (_, k) => (vars[k] ?? ''));
 }
 
+/** Fields the templates follow with their own full stop: drop a trailing one so "green.." never appears. */
+const unstop = s => String(s || '').trim().replace(/\.+$/, '');
+
 /**
  * Reference sheets a series provides: a shared main character and/or a cast.
  * Returns { char?: {vars}, cast: { Name: {vars} } } with prompt and aspect filled in.
@@ -30,11 +33,11 @@ export function seriesJobs(series, prompts) {
   const t = prompts.t, out = { cast: {} };
   if (!series) return out;
   if (series.character) {
-    const vars = { style: series.style || '', palette: series.palette || '', character: series.character };
+    const vars = { style: series.style || '', palette: unstop(series.palette), character: series.character };
     out.char = { key: 'char', vars, prompt: fill(t.bedtime.char, vars), aspect: '1:1', refs: [] };
   }
   for (const [name, desc] of Object.entries(series.cast || {})) {
-    const vars = { style: series.style || '', palette: series.palette || '', desc };
+    const vars = { style: series.style || '', palette: unstop(series.palette), desc: unstop(desc) };
     out.cast[name] = { key: name, vars, prompt: fill(t.reading.cast, vars), aspect: '1:1', refs: [] };
   }
   return out;
@@ -49,6 +52,7 @@ export function imageJobs(book, series, prompts, state = null) {
   const t = prompts.t, h = effective(book, series), out = {};
   const total = book.pages.length;
   const framing = h.framing ? ' ' + h.framing.trim() : '';      // stamped as part of vars; the wording around it is not
+  h.palette = unstop(h.palette); h.sky = unstop(h.sky);
   if (h.set === 'reading') {
     const who = castByPage(book, h.castDesc);
     const pages = [[0, { beat: book.cover }], ...book.pages.map(p => [p.n, p])];

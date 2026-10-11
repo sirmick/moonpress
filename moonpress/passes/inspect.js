@@ -9,7 +9,7 @@ import { writeBytes } from '../lib/store.js';
 import { extFor } from '../lib/openrouter.js';
 import { drawBook, MASTER_QUALITY } from './draw.js';
 
-const CHECKS = ['text', 'character', 'content', 'panel', 'contrast', 'extras'];
+const CHECKS = ['text', 'character', 'content', 'panel', 'contrast', 'extras', 'edges'];
 const SCHEMA = {
   type: 'object', additionalProperties: false, required: ['checks', 'action'],
   properties: {

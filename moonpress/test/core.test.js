@@ -45,19 +45,24 @@ test('sample store resolves series and books', () => {
 
 test('templates reproduce the prompts the sample pictures were made with', () => {
   // Those pictures predate the composition sentence and the panel wording, so compare without them.
+  // (The recorded prompts also carried a doubled full stop after the palette, since fixed: compare with it collapsed.)
   const legacy = JSON.parse(JSON.stringify(prompts));
   legacy.t.bedtime.page = legacy.t.bedtime.page.replace(/ An opaque text panel.*$/, ' Keep the {{text_pos}} quarter of the image simple and uncluttered (plain ground, water or sky) because a text panel will be drawn there.');
+  legacy.t.reading.page = legacy.t.reading.page
+    .replace(', with the characters large and centred in the upper part of the picture', '')
+    .replace(/ Keep the lower 40%.*$/, ' Keep the bottom third of the image plain cream because a large text panel will be drawn there.');
+  const norm = s => s.replace(/\.\.+/g, '.');
   for (const slug of ['kittens', 'r01-sit-pip']) {
     const book = { ...store.book(slug), framing: '' }, state = store.state(slug);
     const jobs = imageJobs(book, store.seriesOf(book), legacy, state);
     for (const [key, p] of Object.entries(state.pages)) {
       if (!p.image?.prompt) continue;
-      assert.equal(jobs[key].prompt, p.image.prompt, `${slug}/${key}`);
+      assert.equal(jobs[key].prompt, norm(p.image.prompt), `${slug}/${key}`);
     }
   }
   const sj = seriesJobs(store.series('reading'), prompts);
   const rs = store.seriesState('reading');
-  for (const name of ['Pip', 'Tip']) assert.equal(sj.cast[name].prompt, rs.refs[name].prompt, name);
+  for (const name of ['Pip', 'Tip']) assert.equal(sj.cast[name].prompt, norm(rs.refs[name].prompt), name);
 });
 
 test('every picture prompt carries the composition sentence, and it is stamped', () => {

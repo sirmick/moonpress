@@ -8,7 +8,7 @@
   },
   "reading": {
     "cast": "Character reference sheet for a children's learn-to-read picture book. {{style}} Palette: {{palette}}. Animals keep their natural colours. Show the same character three times on a plain cream background: sitting facing the viewer, standing side view, and curled up asleep. The character: {{desc}}. Identical colours, markings and proportions in all three.",
-    "page": "{{style}} Palette: {{palette}}. Animals keep their natural colours. Characters in this picture: {{chars}} {{refnote}}Show only what the scene describes, on a plain cream background. Scene: {{beat}}{{framing}} Keep the bottom third of the image plain cream because a large text panel will be drawn there.",
+    "page": "{{style}} Palette: {{palette}}. Animals keep their natural colours. Characters in this picture: {{chars}} {{refnote}}Show only what the scene describes, on a plain cream background, with the characters large and centred in the upper part of the picture. Scene: {{beat}}{{framing}} Keep the lower 40% of the image plain cream with nothing drawn there, because a large text panel will be drawn over it.",
     "refnote": "The attached images are character references, in this order: {{names}}. Draw each character exactly as in its reference (same colours, markings, proportions). "
   },
   "edit": "Edit the attached picture: {{instruction}} Change nothing else: keep the same style, composition, colours and character. No text, letters or numbers anywhere in the image.",

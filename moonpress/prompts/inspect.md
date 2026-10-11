@@ -15,6 +15,11 @@ words on the page. Judge the page against these checks, in this order of importa
    Small dark accents are fine; a black night sky or a dark room is not.
 6. `extras`: nothing odd: duplicated characters, extra limbs, a second moon, objects floating,
    anatomy that would puzzle a child.
+7. `edges`: the picture itself runs to its edges. A border band, decorative frame, paper margin,
+   vignette or blank strip painted by the illustrator is a problem, because every page of a book
+   must have the same edges and the book's own frame or fade is added afterwards. (A soft fade or
+   white frame that the page notes say belongs to the book is not the illustrator's and is fine.)
+   The usual fix is `crop`, zooming in past the band.
 
 Each check is `ok` or a short phrase saying what is wrong. Whether the picture runs to the edges or
 sits inside a white frame is the book's design, the same on every page; never comment on it.
