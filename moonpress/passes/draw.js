@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import { imageJobs, seriesJobs, fill } from '../lib/prompts.js';
 import { refPaths, refStamps, imageInputs, markStale } from '../lib/images.js';
-import { castByPage, effective, pageKeys } from '../lib/book.js';
+import { castByPage, effective, pageKeys, backfillFraming } from '../lib/book.js';
 import { toWebp } from '../lib/render.js';
 import { writeBytes } from '../lib/store.js';
 import { extFor } from '../lib/openrouter.js';
@@ -56,6 +56,7 @@ export function seriesRefsNeeded(book, series) {
  */
 export async function drawBook(store, slug, { or, prompts, cfg, only = null, redo = [], force = false, hints = {}, log = () => {} }) {
   const book = store.book(slug), series = store.seriesOf(book), state = store.state(slug);
+  if (backfillFraming(book, series)) { store.writeBook(slug, book); log(`${slug}: backfilled the composition sentence into book.json`); }
   const h = effective(book, series);
   await ensureSeriesRefs(store, series, seriesRefsNeeded(book, series), { or, cfg, prompts, log });
   const jobs = imageJobs(book, series, prompts, state);

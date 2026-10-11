@@ -48,6 +48,7 @@ export function seriesJobs(series, prompts) {
 export function imageJobs(book, series, prompts, state = null) {
   const t = prompts.t, h = effective(book, series), out = {};
   const total = book.pages.length;
+  const framing = h.framing ? ' ' + h.framing.trim() : '';      // stamped as part of vars; the wording around it is not
   if (h.set === 'reading') {
     const who = castByPage(book, h.castDesc);
     const pages = [[0, { beat: book.cover }], ...book.pages.map(p => [p.n, p])];
@@ -56,7 +57,7 @@ export function imageJobs(book, series, prompts, state = null) {
       const names = who[key] || [];
       const chars = names.map(m => h.castDesc[m] + '.').join(' ') || 'none';
       const refnote = names.length ? fill(t.reading.refnote, { names: names.join(', ') }) : '';
-      const vars = { style: h.style, palette: h.palette, chars, names, beat: p.beat };
+      const vars = { style: h.style, palette: h.palette, chars, names, beat: p.beat, framing };
       out[key] = { key, vars, prompt: fill(t.reading.page, { ...vars, refnote }), aspect: '3:4', refs: names };
     }
     return out;
@@ -67,13 +68,13 @@ export function imageJobs(book, series, prompts, state = null) {
     out.char = { key: 'char', vars, prompt: fill(t.bedtime.char, vars), aspect: '1:1', refs: [] };
   }
   {
-    const vars = { style: h.style, palette: h.palette, sky: h.sky, title: book.title, cover: book.cover, character: h.character };
+    const vars = { style: h.style, palette: h.palette, sky: h.sky, title: book.title, cover: book.cover, character: h.character, framing };
     out.cover = { key: 'cover', vars, prompt: common + fill(t.bedtime.cover, vars), aspect: '3:4', refs: ['char'] };
   }
   for (const p of book.pages) {
     const key = `p${String(p.n).padStart(2, '0')}`;
     const vars = { style: h.style, palette: h.palette, sky: h.sky, character: h.character, n: p.n, total,
-                   timePhrase: h.timePhrase, beat: p.beat, text_pos: effectiveTextPos(p, state) };
+                   timePhrase: h.timePhrase, beat: p.beat, text_pos: effectiveTextPos(p, state), framing };
     out[key] = { key, vars, prompt: common + fill(t.bedtime.page, vars), aspect: '3:4', refs: ['char'] };
   }
   return out;

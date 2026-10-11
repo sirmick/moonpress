@@ -58,10 +58,35 @@ export function frameFor(kind, width = W) {
 }
 
 /**
- * Device page: optional unit crop [x, y, w, h] of the source, centre-crop to 3:4, resize to
- * 1072x1448, autocontrast, then the book's frame. Returns a canvas.
+ * A mask: a 1072x1448 PNG with alpha, a solid colour at the edges fading to transparent inwards, laid
+ * over every page of a book to hide inconsistent edges in the model's pictures. `width` is the fade in
+ * pixels, `radius` rounds the inner corners (0 for square), `colour` is any CSS colour.
  */
-export async function processPage(srcBuf, { crop, frame = 'full', contrast = true, width = W, height = H } = {}) {
+export function makeMask({ colour = '#fff', fade = 160, radius = 0, width = W, height = H } = {}) {
+  const c = createCanvas(width, height), g = c.getContext('2d');
+  g.fillStyle = colour; g.fillRect(0, 0, width, height);
+  const id = g.getImageData(0, 0, width, height), d = id.data;
+  const hx = width / 2, hy = height / 2, r = Math.max(0, Math.min(radius, hx, hy));
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      // Signed distance to a rounded rectangle the size of the page; negative inside.
+      const qx = Math.abs(x + 0.5 - hx) - (hx - r), qy = Math.abs(y + 0.5 - hy) - (hy - r);
+      const dist = Math.hypot(Math.max(qx, 0), Math.max(qy, 0)) + Math.min(Math.max(qx, qy), 0) - r;
+      const inside = -dist;                                    // distance in from the edge
+      const t = Math.min(1, Math.max(0, inside / fade));
+      const alpha = 1 - t * t * (3 - 2 * t);                   // smoothstep: opaque at the edge, clear past the fade
+      d[(y * width + x) * 4 + 3] = Math.round(alpha * 255);
+    }
+  }
+  g.putImageData(id, 0, 0);
+  return c.encode('png');
+}
+
+/**
+ * Device page: optional unit crop [x, y, w, h] of the source, centre-crop to 3:4, resize to
+ * 1072x1448, autocontrast, the book's mask if it has one, then the book's frame. Returns a canvas.
+ */
+export async function processPage(srcBuf, { crop, frame = 'full', mask = null, contrast = true, width = W, height = H } = {}) {
   const im = await loadImage(srcBuf);
   let sx = 0, sy = 0, sw = im.width, sh = im.height;
   if (crop && crop.length === 4) {
@@ -75,6 +100,7 @@ export async function processPage(srcBuf, { crop, frame = 'full', contrast = tru
   g.fillStyle = '#fff'; g.fillRect(0, 0, width, height);
   g.drawImage(im, sx, sy, sw, sh, 0, 0, width, height);
   if (contrast) autocontrast(g, width, height);
+  if (mask) g.drawImage(await loadImage(mask), 0, 0, width, height);
   const f = typeof frame === 'string' ? frameFor(frame, width) : frame;
   if (!f || f.kind === 'full' || !f.width) return c;
   const b = f.width;
@@ -168,8 +194,8 @@ export function drawReadingPanel(g, w, h, text, word) {
  * Composite: the processed page with the panel drawn, exactly as the reader shows it.
  * page: { text, word, text_pos } (null for the cover). set: 'bedtime' | 'reading'.
  */
-export async function composite(srcBuf, { page, set = 'bedtime', text_pos, crop, frame = 'full' } = {}) {
-  const c = await processPage(srcBuf, { crop, frame });
+export async function composite(srcBuf, { page, set = 'bedtime', text_pos, crop, frame = 'full', mask = null } = {}) {
+  const c = await processPage(srcBuf, { crop, frame, mask });
   const g = c.getContext('2d');
   if (page) {
     if (set === 'reading') drawReadingPanel(g, W, H, page.text || '', page.word || '');

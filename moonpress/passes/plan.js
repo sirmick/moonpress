@@ -1,6 +1,6 @@
 // Pass 1: series planning. Writes book headers for the books a series wants.
 import { stamp } from '../lib/stamp.js';
-import { planOut } from '../lib/book.js';
+import { planOut, backfillFraming } from '../lib/book.js';
 import { blankBook, writeJson } from '../lib/store.js';
 
 const SCHEMA = {
@@ -60,6 +60,7 @@ export async function planSeries(store, name, { or, prompts, cfg, candidates = 1
     });
     if (t.hint) book.setting = t.hint;
     if (!book.pages) book.pages = [];
+    backfillFraming(book, series);
     store.writeBook(t.slug, book);
     const state = store.state(t.slug);
     state.plan = { in: planIn, out: stamp(planOut(book)), model: cfg.modelText, at: new Date().toISOString() };

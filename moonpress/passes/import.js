@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { stamp, stampBytes } from '../lib/stamp.js';
-import { headerVars, pageOut, planOut, pageKeys } from '../lib/book.js';
+import { headerVars, pageOut, planOut, pageKeys, backfillFraming } from '../lib/book.js';
 import { loadPrompts, imageJobs, seriesJobs } from '../lib/prompts.js';
 import { refPaths, refStamps, imageInputs } from '../lib/images.js';
 import { writeBytes } from '../lib/store.js';
@@ -98,6 +98,7 @@ export async function importLegacy(store, from, { log = () => {}, model = 'googl
       if (p.no_cast) page.no_cast = true;
       return page;
     });
+    backfillFraming(book, series);
     store.writeBook(slug, book);
 
     const state = store.state(slug);

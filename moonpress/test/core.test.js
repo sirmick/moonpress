@@ -34,9 +34,12 @@ test('sample store resolves series and books', () => {
 });
 
 test('templates reproduce the prompts the sample pictures were made with', () => {
+  // Those pictures predate the composition sentence and the panel wording, so compare without them.
+  const legacy = JSON.parse(JSON.stringify(prompts));
+  legacy.t.bedtime.page = legacy.t.bedtime.page.replace(/ An opaque text panel.*$/, ' Keep the {{text_pos}} quarter of the image simple and uncluttered (plain ground, water or sky) because a text panel will be drawn there.');
   for (const slug of ['kittens', 'r01-sit-pip']) {
-    const book = store.book(slug), state = store.state(slug);
-    const jobs = imageJobs(book, store.seriesOf(book), prompts, state);
+    const book = { ...store.book(slug), framing: '' }, state = store.state(slug);
+    const jobs = imageJobs(book, store.seriesOf(book), legacy, state);
     for (const [key, p] of Object.entries(state.pages)) {
       if (!p.image?.prompt) continue;
       assert.equal(jobs[key].prompt, p.image.prompt, `${slug}/${key}`);
@@ -45,6 +48,20 @@ test('templates reproduce the prompts the sample pictures were made with', () =>
   const sj = seriesJobs(store.series('reading'), prompts);
   const rs = store.seriesState('reading');
   for (const name of ['Pip', 'Tip']) assert.equal(sj.cast[name].prompt, rs.refs[name].prompt, name);
+});
+
+test('every picture prompt carries the composition sentence, and it is stamped', () => {
+  const book = store.book('kittens');
+  const jobs = imageJobs(book, store.seriesOf(book), prompts, store.state('kittens'));
+  for (const k of ['cover', 'p01', 'p12']) {
+    assert.match(jobs[k].prompt, /fills the whole frame edge to edge/);
+    assert.ok(jobs[k].vars.framing.includes('edge to edge'), 'framing is part of the stamped vars');
+  }
+  const custom = imageJobs({ ...book, framing: 'Composition: a round porthole vignette.' }, store.seriesOf(book), prompts, store.state('kittens'));
+  assert.match(custom.p01.prompt, /porthole/);
+  assert.notEqual(custom.p01.vars.framing, jobs.p01.vars.framing);
+  const r = store.book('r01-sit-pip');
+  assert.match(imageJobs(r, store.seriesOf(r), prompts).p01.prompt, /plain cream background fills the whole frame/);
 });
 
 test('reading pages get the cast on the page, falling back to the previous page', () => {

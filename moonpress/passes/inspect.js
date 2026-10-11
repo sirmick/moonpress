@@ -33,14 +33,16 @@ function cleanCrop(c) {
 }
 
 export function inspectInputs(store, slug, key, page, state) {
-  const e = state.pages[key]?.edit || {}, book = store.book(slug);
+  const e = state.pages[key]?.edit || {}, book = store.book(slug), h = effective(book, store.seriesOf(book));
+  const mask = store.mask(h.mask);
   return stamp({ src: stampBytes(fs.readFileSync(store.src(slug, key))), text: page?.text || '', word: page?.word || '',
-                 text_pos: page ? effectiveTextPos(page, state) : null, crop: e.crop || null, frame: effective(book, store.seriesOf(book)).frame });
+                 text_pos: page ? effectiveTextPos(page, state) : null, crop: e.crop || null, frame: h.frame, mask: mask ? stampBytes(mask) : null });
 }
 
 async function renderFor(store, book, key, state, h) {
   const page = pageOf(book, key), e = state.pages[key]?.edit || {};
-  const c = await composite(fs.readFileSync(store.src(book.slug, key)), { page, set: h.set, text_pos: page ? effectiveTextPos(page, state) : undefined, crop: e.crop, frame: h.frame });
+  const c = await composite(fs.readFileSync(store.src(book.slug, key)), { page, set: h.set, text_pos: page ? effectiveTextPos(page, state) : undefined,
+                                                                           crop: e.crop, frame: h.frame, mask: store.mask(h.mask) });
   return encodeWebp(c, 80);
 }
 
@@ -69,6 +71,7 @@ export async function inspectBook(store, slug, { or, prompts, cfg, auto = false,
         page ? `Words on the page: ${page.word ? `[${page.word}] ` : ''}${page.text}` : '',
         page && h.set !== 'reading' ? `The panel is at the ${effectiveTextPos(page, state)}.` : '',
         h.frame !== 'full' ? `This book's pages all have a white ${h.frame} frame around the picture; that is by design, not a problem.` : '',
+        h.mask ? 'Every page of this book has a soft fade to a plain colour at the edges; that is by design, not a problem.' : '',
         h.set === 'reading' ? `Characters expected: ${(jobs[key].vars.names || []).join(', ') || 'none'}.` : `Main character: ${h.character}`,
         'The first image is the page as the child sees it. The following image(s) are the character reference sheet(s).',
       ].filter(Boolean).join('\n');

@@ -57,6 +57,8 @@ Only humans and passes 1 and 2 write this file. Passes 1 and 2 only fill fields 
   "synopsis": "optional, written by pass 1 for pass 2",
   "setting": "optional hint from the series, e.g. the city",
   "frame": "full | square | rounded: one frame policy for every page of the book",
+  "framing": "the composition sentence in every picture prompt; backfilled with the default when missing",
+  "mask": "masks/cream-soft.png: optional PNG laid over every page, a colour fading in from the edges",
   "refrain": "whistles Marlo.",
   "palette": "fir green, slate blue, ochre, rust, cream snow.",
   "sky": "gold alpenglow on the peak → pink → lavender dusk → pale indigo with stars (never black).",
@@ -77,7 +79,16 @@ Only humans and passes 1 and 2 write this file. Passes 1 and 2 only fill fields 
   `square` and `rounded` inset every page in a white margin as wide as the text panel's margin, so
   the reader's panel lines up with the picture's inner edge and the app needs no change. Pass 1
   picks it when the series doesn't fix it; the inspector never touches it.
-- A series may fix `character`, `style`, `palette` and `frame` for every book (the cities series does): the
+- `framing` is the composition sentence every picture prompt carries. The default pins what the
+  models otherwise wander on: the picture fills the frame edge to edge, no bands, margins, paper
+  edges or blank strips. It is part of the image stamp, so changing it marks pictures stale, and
+  `moonpress backfill` (or any draw) writes the default into books that predate it so the next
+  regeneration carries it and a human can edit it.
+- `mask` names a PNG under `masks/` in the content root: a plain colour, opaque at the edges and
+  fading to transparent inwards, laid over every page before the frame and the panel. It hides the
+  inconsistent edges of pictures made before `framing` existed. `moonpress mask <name>` writes one
+  (`--colour`, `--fade`, `--radius`); hand-made PNGs work too. Its bytes are in the package stamp.
+- A series may fix `character`, `style`, `palette`, `frame`, `framing` and `mask` for every book (the cities series does): the
   book leaves those fields empty, and the shared reference sheet lives at `series/<name>/char.webp`.
   `timePhrase` in the series ("evening" by default) is the span the sky arc covers.
 - `who` lists the cast members on a reading page. Optional: when absent it is inferred by matching

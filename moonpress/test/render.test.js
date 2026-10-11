@@ -2,7 +2,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
-import { composite, processPage, encodeWebp, W, H, layoutText, registerFonts } from '../lib/render.js';
+import { composite, processPage, encodeWebp, W, H, layoutText, registerFonts, makeMask } from '../lib/render.js';
+import { loadImage } from '@napi-rs/canvas';
 import { createCanvas } from '@napi-rs/canvas';
 import { openStore } from '../lib/store.js';
 import { REPO } from '../lib/config.js';
@@ -57,6 +58,22 @@ test('reading panel is centred, 80% wide, at the bottom', async () => {
   assert.ok(isWhite(pixel(c, W / 2, H - m - 10)), 'white inside the panel');
   assert.ok(isBlack(pixel(c, Math.round(left) + 1, H - m - 60)), 'black left rule');
   assert.ok(isBlack(pixel(c, Math.round(left + boxW) - 1, H - m - 60)), 'black right rule');
+});
+
+test('a mask is opaque at the edge, clear in the middle, and hides the edge of a page', async () => {
+  const png = await makeMask({ colour: '#000', fade: 100 });
+  const im = await loadImage(png);
+  assert.equal(im.width, W); assert.equal(im.height, H);
+  const c = (await import('@napi-rs/canvas')).createCanvas(W, H), g = c.getContext('2d');
+  g.drawImage(im, 0, 0);
+  const alpha = (x, y) => g.getImageData(x, y, 1, 1).data[3];
+  assert.equal(alpha(0, H / 2), 255, 'opaque at the edge');
+  assert.ok(alpha(50, H / 2) > 60 && alpha(50, H / 2) < 200, 'half way through the fade');
+  assert.equal(alpha(W / 2, H / 2), 0, 'clear in the middle');
+  const red = (await import('@napi-rs/canvas')).createCanvas(896, 1200); const rg = red.getContext('2d'); rg.fillStyle = '#c00'; rg.fillRect(0, 0, 896, 1200);
+  const page = await processPage(await red.encode('png'), { mask: png, contrast: false });
+  assert.ok(isBlack(pixel(page, 2, H / 2)), 'the mask colour covers the page edge');
+  assert.ok(pixel(page, W / 2, H / 2)[0] > 150, 'the middle of the page is untouched');
 });
 
 test('text wraps to the width and shrinks until it fits', () => {

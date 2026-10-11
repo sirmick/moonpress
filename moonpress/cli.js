@@ -5,9 +5,12 @@ import fs from 'node:fs';
 import { config } from './lib/config.js';
 import { openStore } from './lib/store.js';
 import { OpenRouter, readKey, BudgetExceeded } from './lib/openrouter.js';
-import { loadPrompts } from './lib/prompts.js';
+import { loadPrompts, imageJobs } from './lib/prompts.js';
+import { markStale } from './lib/images.js';
 import { log, usd } from './lib/log.js';
-import { pageKeys } from './lib/book.js';
+import { pageKeys, backfillFraming } from './lib/book.js';
+import { makeMask } from './lib/render.js';
+import { writeBytes } from './lib/store.js';
 import { importLegacy } from './passes/import.js';
 import { planSeries } from './passes/plan.js';
 import { writeBook, pagesToWrite } from './passes/write.js';
@@ -28,6 +31,8 @@ const USAGE = `moonpress: makes illustrated picture books for the Nighttime Book
   moonpress all     <series|slug>       write, draw, inspect --auto, package
   moonpress status  [series|slug]       what is missing, stale, or unpublished
   moonpress bundle  html <slug> | apk   one-file HTML book, or the reader APK with every book inside
+  moonpress mask    <name>              write masks/<name>.png: a colour fading in from the edges (--colour, --fade, --radius)
+  moonpress backfill [series|slug]      write the composition sentence into books that predate it
   moonpress import  <kids-bookgen dir>  one-off migration of the old checkout
   moonpress serve                       editor server (web/ + JSON API)
 
@@ -44,6 +49,7 @@ const USAGE = `moonpress: makes illustrated picture books for the Nighttime Book
   --workers n       parallel image calls (default 3)
   --out <file>      bundle html: where to write
   --port n          serve: port (default 8787)
+  --colour <css>    mask: the edge colour (default white); --fade <px> how far it fades in (default 160); --radius <px> inner corner rounding (default 0)
 `;
 
 const { values: f, positionals } = parseArgs({
@@ -53,6 +59,7 @@ const { values: f, positionals } = parseArgs({
     redo: { type: 'string' }, force: { type: 'boolean' }, auto: { type: 'boolean' }, 'max-regens': { type: 'string' },
     candidates: { type: 'string' }, 'model-text': { type: 'string' }, 'model-vision': { type: 'string' }, 'model-image': { type: 'string' },
     workers: { type: 'string' }, out: { type: 'string' }, port: { type: 'string' }, help: { type: 'boolean', short: 'h' },
+    colour: { type: 'string' }, fade: { type: 'string' }, radius: { type: 'string' },
   },
 });
 const [cmd, ...args] = positionals;
@@ -78,6 +85,7 @@ async function status(target) {
     const book = store.book(slug), state = store.state(slug), series = store.seriesOf(book);
     const keys = pageKeys(book);
     const have = keys.filter(k => fs.existsSync(store.src(slug, k)));
+    markStale(store, book, series, imageJobs(book, series, prompts, state), state, cfg.modelImage);   // computed, not written
     const stale = keys.filter(k => state.pages[k]?.image?.stale);
     const toWrite = book.pages.length ? pagesToWrite(book, series, state).length : book.pages.length === 0 ? 'all' : 0;
     const inspected = keys.filter(k => state.pages[k]?.inspect).length;
@@ -115,6 +123,20 @@ try {
       }
       break;
     case 'status': await status(args[0]); break;
+    case 'mask': {
+      const name = args[0]; if (!name || !/^[a-z0-9-]+$/.test(name)) throw new Error('mask <name> (letters, digits, dashes)');
+      const png = await makeMask({ colour: f.colour || '#fff', fade: +(f.fade || 160), radius: +(f.radius || 0) });
+      writeBytes(store.maskPath(name), png);
+      log(`wrote ${store.maskPath(name)} (${(png.length / 1024).toFixed(0)} KB). Use it with "mask": "masks/${name}.png" in a book or series.`);
+      break;
+    }
+    case 'backfill': {
+      const slugs = args[0] ? slugsOf(args[0]) : store.listBooks();
+      let n = 0;
+      for (const slug of slugs) { const b = store.book(slug); if (backfillFraming(b, store.seriesOf(b))) { store.writeBook(slug, b); n++; } }
+      log(`backfilled ${n} of ${slugs.length} books`);
+      break;
+    }
     case 'bundle': {
       if (args[0] === 'html') { const r = bundleHtml(store, args[1], { out: f.out }); log(`wrote ${r.file} (${(r.bytes / 1e6).toFixed(1)} MB)`); }
       else if (args[0] === 'apk') bundleApk(store, { log });

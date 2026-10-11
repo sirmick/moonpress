@@ -1,11 +1,24 @@
 // Helpers over the authored book shape.
 
+/**
+ * The composition sentence every picture prompt carries. It pins down what the model is otherwise
+ * free to wander on: the picture fills the frame, and there are no bands, margins or paper edges.
+ * A book or series may override it; an explicit empty string drops it.
+ */
+export const DEFAULT_FRAMING = {
+  bedtime: 'Composition: the picture fills the whole frame edge to edge like a photograph. The scene continues right up to every edge: no border, no margin, no frame line, no vignette, no paper edge, and no blank or plain strip on any side.',
+  reading: 'Composition: the plain cream background fills the whole frame edge to edge with no border, frame line, margin or vignette.',
+};
+
 /** Effective header: book fields with series-level defaults filled in. */
 export function effective(book, series) {
   const s = series || {};
   const character = book.character || s.character || '';
+  const set = book.set || s.set || 'bedtime';
   return {
-    set: book.set || s.set || 'bedtime',
+    set,
+    framing: book.framing ?? s.framing ?? DEFAULT_FRAMING[set] ?? DEFAULT_FRAMING.bedtime,
+    mask: book.mask ?? s.mask ?? null,               // path of a mask PNG relative to the content root, or null
     title: book.title || '',
     character,
     sharedChar: !!s.character && !book.character,
@@ -19,6 +32,17 @@ export function effective(book, series) {
     castDesc: s.cast || {},
     cast: book.cast || [],
   };
+}
+
+/**
+ * Backfill: a book written before the composition sentence existed gets it written into its
+ * authored file, so the next regeneration carries it and a human can see and edit it. Returns true
+ * when the book changed.
+ */
+export function backfillFraming(book, series) {
+  if (book.framing !== undefined || series?.framing !== undefined) return false;
+  book.framing = DEFAULT_FRAMING[book.set || series?.set || 'bedtime'] || DEFAULT_FRAMING.bedtime;
+  return true;
 }
 
 /** Image keys for a book: cover then pages. The reference sheet is handled separately. */

@@ -95,7 +95,8 @@ export async function serve(store, { port = 8787, prompts, cfg, log = () => {} }
           const e = state.pages[key]?.edit || {};
           const text_pos = u.searchParams.get('text_pos') || (page ? effectiveTextPos(page, state) : undefined);
           const frame = u.searchParams.get('frame') || h.frame;
-          const c = await composite(fs.readFileSync(src), { page: over, set: h.set, text_pos, crop: e.crop, frame });
+          const mask = store.mask(u.searchParams.has('mask') ? u.searchParams.get('mask') : h.mask);
+          const c = await composite(fs.readFileSync(src), { page: over, set: h.set, text_pos, crop: e.crop, frame, mask });
           return send(res, 200, await encodeWebp(c, 80), 'image/webp');
         }
         if (what === 'books' && safe(slug) && sub === 'package' && req.method === 'POST') {

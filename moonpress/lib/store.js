@@ -103,6 +103,10 @@ export function openStore(root) {
       throw new Error(`"${target}" is neither a series nor a book in ${root}`);
     },
 
+    /** Bytes of a mask PNG named by a book or series (path relative to the content root), or null. */
+    mask(rel) { if (!rel) return null; const f = p(rel); return fs.existsSync(f) ? fs.readFileSync(f) : null; },
+    maskPath(name) { return p('masks', `${name}.png`); },
+
     catalog() { return readJson(p('catalog.json'), null); },
     writeCatalog(obj) { writeJson(p('catalog.json'), obj); },
     houseStyle() { const f = p('house-style.md'); return fs.existsSync(f) ? fs.readFileSync(f, 'utf8') : null; },

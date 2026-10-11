@@ -18,7 +18,8 @@ export function packageInputs(store, book, state) {
     pages.push({ key, src: stampBytes(fs.readFileSync(src)), crop: e.crop || null,
                  text: p?.text || '', text_pos: p ? effectiveTextPos(p, state) : null, word: p?.word || '' });
   }
-  return { set: h.set, title: book.title, frame: h.frame, pages };
+  const mask = store.mask(h.mask);
+  return { set: h.set, title: book.title, frame: h.frame, mask: mask ? stampBytes(mask) : null, pages };
 }
 
 /** True when the book has a cover image, so it can be packaged at all. */
@@ -34,11 +35,13 @@ export async function packageBook(store, slug, { force = false, log = () => {} }
   if (!force && state.package?.hash === hash && fs.existsSync(outManifest) && complete) return { packaged: false, hash, unchanged: true };
 
   const h = effective(book, store.seriesOf(book));
+  const mask = store.mask(h.mask);
+  if (h.mask && !mask) log(`${slug}: mask ${h.mask} not found, packaging without it`);
   const manifestPages = [];
   for (const p of inputs.pages) {
     const srcBuf = fs.readFileSync(store.src(slug, p.key));
     const page = pageOf(book, p.key);
-    const opts = { crop: p.crop || undefined, frame: h.frame };
+    const opts = { crop: p.crop || undefined, frame: h.frame, mask };
     const device = await processPage(srcBuf, opts);
     writeBytes(store.out(slug, `${p.key}.webp`), await encodeWebp(device, DEVICE_QUALITY));
     const view = await composite(srcBuf, { page, set: h.set, text_pos: p.text_pos, ...opts });

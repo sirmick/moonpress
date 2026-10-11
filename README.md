@@ -42,6 +42,15 @@ device shows it, with the inspector's checks and the action taken or proposed.
 
 Then commit and push Nightstand. GitHub Pages serves it; the reader pulls on its next sync.
 
+### Edges
+
+Every picture prompt carries a composition sentence (`framing` in `book.json`, default: the picture
+fills the frame edge to edge, no bands or margins). Books made before it existed get it backfilled on
+their next draw. For pictures already made, a `mask` hides inconsistent edges: `moonpress mask
+cream-soft --colour '#f4efe3' --fade 160` writes `masks/cream-soft.png` in the content checkout, and
+`"mask": "masks/cream-soft.png"` on a book or series lays it over every page. `frame` (`full`,
+`square`, `rounded`) is the book's frame policy on top of that.
+
 ### Making a series
 
 Write `series/<name>.json` in the Nightstand checkout (see `sample/series/` and the `cities`
