@@ -94,7 +94,8 @@ export async function serve(store, { port = 8787, prompts, cfg, log = () => {} }
           const over = page ? { ...page, text: u.searchParams.get('text') ?? page.text, word: u.searchParams.get('word') ?? page.word } : null;
           const e = state.pages[key]?.edit || {};
           const text_pos = u.searchParams.get('text_pos') || (page ? effectiveTextPos(page, state) : undefined);
-          const c = await composite(fs.readFileSync(src), { page: over, set: h.set, text_pos, crop: e.crop, border: e.border });
+          const frame = u.searchParams.get('frame') || h.frame;
+          const c = await composite(fs.readFileSync(src), { page: over, set: h.set, text_pos, crop: e.crop, frame });
           return send(res, 200, await encodeWebp(c, 80), 'image/webp');
         }
         if (what === 'books' && safe(slug) && sub === 'package' && req.method === 'POST') {

@@ -45,11 +45,23 @@ export function autocontrast(g, w, h, cutoff = 0.005) {
   g.putImageData(id, 0, 0);
 }
 
+export const FRAMES = ['full', 'square', 'rounded'];
+
+/**
+ * A book's frame policy, the same on every page: 'full' runs the picture to the edges; 'square' and
+ * 'rounded' inset it in a white margin as wide as the text panel's margin (3% of the width), so the
+ * panel the reader draws lines up exactly with the picture's inner edge.
+ */
+export function frameFor(kind, width = W) {
+  const k = FRAMES.includes(kind) ? kind : 'full';
+  return { kind: k, width: k === 'full' ? 0 : Math.round(width * 0.03) };
+}
+
 /**
  * Device page: optional unit crop [x, y, w, h] of the source, centre-crop to 3:4, resize to
- * 1072x1448, autocontrast, optional white border. Returns a canvas.
+ * 1072x1448, autocontrast, then the book's frame. Returns a canvas.
  */
-export async function processPage(srcBuf, { crop, border = 0, contrast = true, width = W, height = H } = {}) {
+export async function processPage(srcBuf, { crop, frame = 'full', contrast = true, width = W, height = H } = {}) {
   const im = await loadImage(srcBuf);
   let sx = 0, sy = 0, sw = im.width, sh = im.height;
   if (crop && crop.length === 4) {
@@ -63,15 +75,17 @@ export async function processPage(srcBuf, { crop, border = 0, contrast = true, w
   g.fillStyle = '#fff'; g.fillRect(0, 0, width, height);
   g.drawImage(im, sx, sy, sw, sh, 0, 0, width, height);
   if (contrast) autocontrast(g, width, height);
-  const b = Math.round(border);
-  if (b > 0) {
-    const inner = createCanvas(width, height), ig = inner.getContext('2d');
-    ig.imageSmoothingEnabled = true; ig.imageSmoothingQuality = 'high';
-    ig.fillStyle = '#fff'; ig.fillRect(0, 0, width, height);
-    ig.drawImage(c, 0, 0, width, height, b, b, width - 2 * b, height - 2 * b);
-    return inner;
-  }
-  return c;
+  const f = typeof frame === 'string' ? frameFor(frame, width) : frame;
+  if (!f || f.kind === 'full' || !f.width) return c;
+  const b = f.width;
+  const framed = createCanvas(width, height), fg = framed.getContext('2d');
+  fg.imageSmoothingEnabled = true; fg.imageSmoothingQuality = 'high';
+  fg.fillStyle = '#fff'; fg.fillRect(0, 0, width, height);
+  fg.save();
+  if (f.kind === 'rounded') { fg.beginPath(); fg.roundRect(b, b, width - 2 * b, height - 2 * b, b); fg.clip(); }
+  fg.drawImage(c, 0, 0, width, height, b, b, width - 2 * b, height - 2 * b);
+  fg.restore();
+  return framed;
 }
 
 function metrics(g, size, family) {
@@ -154,8 +168,8 @@ export function drawReadingPanel(g, w, h, text, word) {
  * Composite: the processed page with the panel drawn, exactly as the reader shows it.
  * page: { text, word, text_pos } (null for the cover). set: 'bedtime' | 'reading'.
  */
-export async function composite(srcBuf, { page, set = 'bedtime', text_pos, crop, border } = {}) {
-  const c = await processPage(srcBuf, { crop, border });
+export async function composite(srcBuf, { page, set = 'bedtime', text_pos, crop, frame = 'full' } = {}) {
+  const c = await processPage(srcBuf, { crop, frame });
   const g = c.getContext('2d');
   if (page) {
     if (set === 'reading') drawReadingPanel(g, W, H, page.text || '', page.word || '');

@@ -15,11 +15,11 @@ const SCHEMA = {
   properties: {
     checks: { type: 'object', additionalProperties: false, required: CHECKS,
               properties: Object.fromEntries(CHECKS.map(c => [c, { type: 'string', description: '"ok" or a short phrase saying what is wrong' }])) },
-    action: { type: 'object', additionalProperties: false, required: ['do', 'to', 'crop', 'px', 'instruction', 'reason'],
-              properties: { do: { type: 'string', enum: ['ok', 'text_pos', 'crop', 'border', 'edit', 'regen'] },
+    action: { type: 'object', additionalProperties: false, required: ['do', 'to', 'crop', 'instruction', 'reason'],
+              properties: { do: { type: 'string', enum: ['ok', 'text_pos', 'crop', 'edit', 'regen'] },
                             to: { type: 'string', enum: ['', 'top', 'bottom'] },
                             crop: { type: 'array', items: { type: 'number' }, description: '[x, y, w, h] fractions, or empty' },
-                            px: { type: 'integer' }, instruction: { type: 'string' }, reason: { type: 'string' } } },
+                            instruction: { type: 'string' }, reason: { type: 'string' } } },
   },
 };
 
@@ -33,14 +33,14 @@ function cleanCrop(c) {
 }
 
 export function inspectInputs(store, slug, key, page, state) {
-  const e = state.pages[key]?.edit || {};
+  const e = state.pages[key]?.edit || {}, book = store.book(slug);
   return stamp({ src: stampBytes(fs.readFileSync(store.src(slug, key))), text: page?.text || '', word: page?.word || '',
-                 text_pos: page ? effectiveTextPos(page, state) : null, crop: e.crop || null, border: e.border || 0 });
+                 text_pos: page ? effectiveTextPos(page, state) : null, crop: e.crop || null, frame: effective(book, store.seriesOf(book)).frame });
 }
 
-async function renderFor(store, book, key, state, set) {
+async function renderFor(store, book, key, state, h) {
   const page = pageOf(book, key), e = state.pages[key]?.edit || {};
-  const c = await composite(fs.readFileSync(store.src(book.slug, key)), { page, set, text_pos: page ? effectiveTextPos(page, state) : undefined, crop: e.crop, border: e.border });
+  const c = await composite(fs.readFileSync(store.src(book.slug, key)), { page, set: h.set, text_pos: page ? effectiveTextPos(page, state) : undefined, crop: e.crop, frame: h.frame });
   return encodeWebp(c, 80);
 }
 
@@ -61,13 +61,14 @@ export async function inspectBook(store, slug, { or, prompts, cfg, auto = false,
       const inputs = inspectInputs(store, slug, key, page, state);
       // Unchanged since last time: skip, unless the last verdict was a redraw that never got its second look.
       if (!force && entry.inspect?.in === inputs && entry.inspect.verdict !== 'redrawn' && passes === 0) { report.push({ key, ...entry.inspect, skipped: true }); break; }
-      const comp = await renderFor(store, book, key, state, h.set);
+      const comp = await renderFor(store, book, key, state, h);
       const refs = refPaths(store, book, series, jobs[key]).filter(r => fs.existsSync(r.path)).map(r => ({ buffer: fs.readFileSync(r.path), mime: 'image/webp' }));
       const user = [
         `Book: "${book.title}" (${h.set} set). ${key === 'cover' ? 'This is the cover; it has no text panel.' : `Page ${page.n} of ${book.pages.length}.`}`,
         `Scene the illustrator was asked for: ${key === 'cover' ? book.cover : page.beat}`,
         page ? `Words on the page: ${page.word ? `[${page.word}] ` : ''}${page.text}` : '',
         page && h.set !== 'reading' ? `The panel is at the ${effectiveTextPos(page, state)}.` : '',
+        h.frame !== 'full' ? `This book's pages all have a white ${h.frame} frame around the picture; that is by design, not a problem.` : '',
         h.set === 'reading' ? `Characters expected: ${(jobs[key].vars.names || []).join(', ') || 'none'}.` : `Main character: ${h.character}`,
         'The first image is the page as the child sees it. The following image(s) are the character reference sheet(s).',
       ].filter(Boolean).join('\n');
@@ -82,7 +83,6 @@ export async function inspectBook(store, slug, { or, prompts, cfg, auto = false,
       entry.edit = entry.edit || {};
       if (action.do === 'text_pos' && page && ['top', 'bottom'].includes(action.to)) { entry.edit.text_pos = action.to; applied = true; verdict = 'fixed'; }
       else if (action.do === 'crop') { const c = cleanCrop(action.crop); if (c) { entry.edit.crop = c; if (['top', 'bottom'].includes(action.to) && page) entry.edit.text_pos = action.to; applied = true; verdict = 'fixed'; } }
-      else if (action.do === 'border') { entry.edit.border = Math.min(120, Math.max(20, action.px || 50)); applied = true; verdict = 'fixed'; }
       else if (action.do === 'edit' || action.do === 'regen') {
         verdict = 'proposed';
         if (auto && regens < maxRegens) {
@@ -95,7 +95,7 @@ export async function inspectBook(store, slug, { or, prompts, cfg, auto = false,
             writeBytes(store.src(slug, key), await toWebp(ir.buffer, MASTER_QUALITY));
             entry.image = { ...entry.image, edited: action.instruction, cost: (entry.image?.cost || 0) + ir.cost, regens: regens + 1, at: new Date().toISOString() };
             state.spend = (state.spend || 0) + ir.cost;
-            delete entry.edit.crop; delete entry.edit.border;
+            delete entry.edit.crop;
           } else {
             store.writeState(slug, state);
             await drawBook(store, slug, { or, prompts, cfg, redo: [key], hints: { [key]: action.reason }, log });
@@ -121,17 +121,17 @@ export async function inspectBook(store, slug, { or, prompts, cfg, auto = false,
   }
   state.spend = (state.spend || 0) + cost;
   store.writeState(slug, state);
-  await writeReview(store, book, state, h.set, report);
+  await writeReview(store, book, state, h, report);
   const counts = report.reduce((a, r) => ((a[r.verdict] = (a[r.verdict] || 0) + 1), a), {});
   log(`${slug}: inspected ${report.length} pages  $${cost.toFixed(3)}  ${JSON.stringify(counts)}  review: ${store.work(slug, 'review.html')}`);
   return { report, cost, counts };
 }
 
-async function writeReview(store, book, state, set, report) {
+async function writeReview(store, book, state, h, report) {
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const cards = [];
   for (const r of report) {
-    const img = (await renderFor(store, book, r.key, state, set)).toString('base64');
+    const img = (await renderFor(store, book, r.key, state, h)).toString('base64');
     const st = state.pages[r.key] || {};
     const checks = r.checks ? Object.entries(r.checks).map(([k, v]) => `<li class="${v.toLowerCase() === 'ok' ? 'ok' : 'bad'}"><b>${k}</b> ${esc(v)}</li>`).join('') : '';
     const act = r.action ? `${r.action.do}${r.action.to ? ' → ' + r.action.to : ''}${r.action.instruction ? ': ' + esc(r.action.instruction) : ''}${r.action.reason ? ': ' + esc(r.action.reason) : ''}` : '';

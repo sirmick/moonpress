@@ -15,13 +15,25 @@ function pixel(canvas, x, y) { const d = canvas.getContext('2d').getImageData(x,
 const isWhite = p => p.every(v => v > 245);
 const isBlack = p => p.every(v => v < 20);
 
-test('device page is 1072x1448 and a crop zooms in', async () => {
+test('device page is 1072x1448; frames are a book policy applied to every page', async () => {
   const src = fs.readFileSync(store.src('kittens', 'p01'));
   const plain = await processPage(src);
   assert.equal(plain.width, W); assert.equal(plain.height, H);
-  const bordered = await processPage(src, { border: 40 });
-  assert.ok(isWhite(pixel(bordered, 5, 5)), 'border is white');
-  assert.ok(!isWhite(pixel(bordered, 60, 700)) || !isWhite(pixel(plain, 60, 700)), 'picture inside the border');
+  assert.ok(!isWhite(pixel(plain, 5, 700)), 'full bleed runs to the edge');
+  // A solid red source makes the frame geometry unambiguous.
+  const red = createCanvas(896, 1200); const rg = red.getContext('2d'); rg.fillStyle = '#c00'; rg.fillRect(0, 0, 896, 1200);
+  const redSrc = await red.encode('png');
+  const isRed = p => p[0] > 150 && p[1] < 60 && p[2] < 60;
+  const m = Math.round(W * 0.03);
+  const square = await processPage(redSrc, { frame: 'square', contrast: false });
+  assert.ok(isWhite(pixel(square, 5, 700)), 'square frame: white margin');
+  assert.ok(isWhite(pixel(square, m - 2, m - 2)), 'square frame: corner is white');
+  assert.ok(isRed(pixel(square, m + 2, m + 2)), 'square frame: picture starts right inside the margin');
+  const rounded = await processPage(redSrc, { frame: 'rounded', contrast: false });
+  assert.ok(isWhite(pixel(rounded, m + 2, m + 2)), 'rounded frame: the corner inside the margin is clipped white');
+  assert.ok(isRed(pixel(rounded, m + 2, H / 2)), 'rounded frame: the picture is there mid-edge');
+  const comp = await composite(src, { page: { n: 1, text: 'Hello.', text_pos: 'bottom' }, set: 'bedtime', frame: 'square' });
+  assert.ok(isBlack(pixel(comp, m + 1, H - m - 60)), 'the panel rule meets the inner edge of the frame');
 });
 
 test('bedtime panel sits in the chosen quarter with a black rule and white fill', async () => {
@@ -66,4 +78,6 @@ test('package stamp changes with text, panel position and edits, not with time',
   assert.notEqual(a, stamp(packageInputs(store, book, s2)));
   const b2 = structuredClone(book); b2.pages[0].text += '!';
   assert.notEqual(a, stamp(packageInputs(store, b2, state)));
+  const b3 = structuredClone(book); b3.frame = 'rounded';
+  assert.notEqual(a, stamp(packageInputs(store, b3, state)), 'the frame policy is part of the package');
 });

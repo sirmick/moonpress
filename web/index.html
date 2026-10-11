@@ -224,6 +224,8 @@ async function openEditor(s) {
     ${field("synopsis", "Synopsis (for the writer)", "textarea", "full")}
     ${series?.character ? `<div class="field full"><span>Main character (from the series)</span><div class="hint">${esc(series.character)}</div></div>` : field("character", "Main character", "textarea", "full")}
     ${field("refrain", "Refrain")}${field("palette", "Palette")}
+    ${series?.frame ? `<div class="field"><span>Frame (from the series)</span><div class="hint">${esc(series.frame)}</div></div>` :
+      `<label class="field"><span>Frame, the same on every page</span><select data-k="frame">${["full", "square", "rounded"].map(f => `<option value="${f}"${(book.frame || "full") === f ? " selected" : ""}>${f === "full" ? "full bleed, picture to the edges" : f === "square" ? "white square frame" : "white frame with rounded corners"}</option>`).join("")}</select></label>`}
     ${field("sky", "Sky / light arc", "input", "full")}
     ${field("cover", "Cover scene", "textarea", "full")}
     ${series?.style ? `<div class="field full"><span>Style (from the series)</span><div class="hint">${esc(series.style)}</div></div>` : field("style", "Style (goes into every prompt)", "textarea", "full")}
@@ -240,7 +242,7 @@ async function openEditor(s) {
   $("#delPage").onclick = () => { if (book.pages.length > 1 && confirm("Remove the last page?")) { book.pages.pop(); touch(); renderPages(); } };
   ed.oninput = e => {
     const t = e.target;
-    if (t.dataset.k) { book[t.dataset.k] = t.value; if (t.dataset.k === "set") { reading = t.value === "reading"; renderPages(); } touch(); }
+    if (t.dataset.k) { book[t.dataset.k] = t.value; if (t.dataset.k === "set") { reading = t.value === "reading"; renderPages(); } if (t.dataset.k === "frame") book.pages.forEach(p => refreshPreview(key(p.n))); touch(); }
     else if (t.dataset.p !== undefined) { book.pages[+t.dataset.p][t.dataset.f] = t.value; touch(); }
   };
 }
@@ -275,7 +277,7 @@ function renderPages() {
 }
 function refreshPreview(k) {
   const p = book.pages.find(pg => key(pg.n) === k); if (!p) return;
-  const q = new URLSearchParams({ text: p.text, word: p.word || "", text_pos: p.text_pos, v: Date.now() });
+  const q = new URLSearchParams({ text: p.text, word: p.word || "", text_pos: p.text_pos, frame: book.frame || series?.frame || "full", v: Date.now() });
   const im = $(`[data-prev="${k}"] img`); if (im) im.src = `api/books/${slug}/preview/${k}?${q}`;
 }
 async function save() {

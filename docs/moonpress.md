@@ -56,6 +56,7 @@ Only humans and passes 1 and 2 write this file. Passes 1 and 2 only fill fields 
   "cast": ["Pip", "Tip"],
   "synopsis": "optional, written by pass 1 for pass 2",
   "setting": "optional hint from the series, e.g. the city",
+  "frame": "full | square | rounded: one frame policy for every page of the book",
   "refrain": "whistles Marlo.",
   "palette": "fir green, slate blue, ochre, rust, cream snow.",
   "sky": "gold alpenglow on the peak → pink → lavender dusk → pale indigo with stars (never black).",
@@ -72,7 +73,11 @@ Only humans and passes 1 and 2 write this file. Passes 1 and 2 only fill fields 
 - `character` is for bedtime books; `cast` is for reading books and lists the names on the book's
   pages, with the descriptions in the series file. The old joined-sentence form is converted on
   import and never written again.
-- A series may fix `character`, `style` and `palette` for every book (the cities series does): the
+- `frame` is a book-wide policy, never a per-page choice: `full` runs pictures to the edges;
+  `square` and `rounded` inset every page in a white margin as wide as the text panel's margin, so
+  the reader's panel lines up with the picture's inner edge and the app needs no change. Pass 1
+  picks it when the series doesn't fix it; the inspector never touches it.
+- A series may fix `character`, `style`, `palette` and `frame` for every book (the cities series does): the
   book leaves those fields empty, and the shared reference sheet lives at `series/<name>/char.webp`.
   `timePhrase` in the series ("evening" by default) is the span the sky arc covers.
 - `who` lists the cast members on a reading page. Optional: when absent it is inferred by matching
@@ -96,7 +101,7 @@ cheap stages and a loss of the cost log.
       "write":   { "in": "…", "out": "…" },
       "image":   { "inputs": "…", "ref": "…", "model": "…", "prompt": "…", "cost": 0.068, "seconds": 10.2,
                    "src": "src/p01.webp", "candidate": 2, "stale": false },
-      "edit":    { "crop": [0.05, 0.0, 0.9, 0.9], "border": 0, "text_pos": "top" },
+      "edit":    { "crop": [0.05, 0.0, 0.9, 0.9], "text_pos": "top" },
       "inspect": { "in": "…", "verdict": "fixed", "checks": { "text": "ok", "character": "ok", "content": "ok",
                    "panel": "covers face", "contrast": "ok", "extras": "ok" },
                    "actions": [ { "do": "text_pos", "to": "top" } ], "regens": 0, "note": "…" }
@@ -199,11 +204,11 @@ Checks, in priority order for e-ink: stray letters or text in the picture; chara
 reference; content matches the text, including counts; the panel covers something that matters;
 large dark areas or low contrast; extra or duplicated characters.
 
-Actions: `ok`, `text_pos`, `crop`, `border`, `edit`, `regen`. `edit` sends the current image back
+Actions: `ok`, `text_pos`, `crop`, `edit`, `regen`. `edit` sends the current image back
 to the image model with an instruction ("remove the letters on the sign") so a good composition is
 kept. `crop` and `text_pos` are chosen together, since zooming can push content under the panel.
 
-`text_pos`, `crop` and `border` apply immediately. `edit` and `regen` apply only with `--auto`,
+`text_pos` and `crop` apply immediately. `edit` and `regen` apply only with `--auto`,
 capped by `--max-regens` per page and by `--budget` per run; otherwise they are proposed. After the
 pass, `work/<slug>/review.html` is written: a contact sheet with every composite, its checks, the
 action taken or proposed, and stale flags. It inlines its data and opens from disk.

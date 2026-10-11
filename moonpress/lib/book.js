@@ -15,6 +15,7 @@ export function effective(book, series) {
     cover: book.cover || '',
     refrain: book.refrain || '',
     timePhrase: s.timePhrase || 'evening',
+    frame: book.frame || s.frame || 'full',          // one frame policy for the whole book: full, square or rounded
     castDesc: s.cast || {},
     cast: book.cast || [],
   };
@@ -78,5 +79,5 @@ export function pageOut(page) {
 /** What pass 1 produced. Stamp this for `plan.out`. */
 export function planOut(book) {
   return { title: book.title, synopsis: book.synopsis || '', character: book.character || '', refrain: book.refrain || '',
-           palette: book.palette || '', sky: book.sky || '', cover: book.cover || '', style: book.style || '' };
+           palette: book.palette || '', sky: book.sky || '', cover: book.cover || '', style: book.style || '', frame: book.frame || '' };
 }

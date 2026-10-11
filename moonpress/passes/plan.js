@@ -7,9 +7,10 @@ const SCHEMA = {
   type: 'object', additionalProperties: false, required: ['books'],
   properties: { books: { type: 'array', items: {
     type: 'object', additionalProperties: false,
-    required: ['slug', 'title', 'synopsis', 'character', 'refrain', 'palette', 'sky', 'cover', 'style'],
+    required: ['slug', 'title', 'synopsis', 'character', 'refrain', 'palette', 'sky', 'cover', 'style', 'frame'],
     properties: { slug: { type: 'string' }, title: { type: 'string' }, synopsis: { type: 'string' }, character: { type: 'string' },
-                  refrain: { type: 'string' }, palette: { type: 'string' }, sky: { type: 'string' }, cover: { type: 'string' }, style: { type: 'string' } } } } },
+                  refrain: { type: 'string' }, palette: { type: 'string' }, sky: { type: 'string' }, cover: { type: 'string' }, style: { type: 'string' },
+                  frame: { type: 'string', enum: ['full', 'square', 'rounded'], description: 'how every page of this book is framed: full bleed, a white square frame, or a white frame with rounded corners' } } } } },
 };
 
 function wanted(series) {
@@ -25,7 +26,7 @@ export async function planSeries(store, name, { or, prompts, cfg, candidates = 1
   const shelf = store.listBooks().map(s => store.book(s)).filter(b => b.title && !todo.some(t => t.slug === b.slug))
     .map(b => ({ slug: b.slug, title: b.title, character: b.character || b.cast?.join(', '), palette: b.palette, style: (b.style || '').slice(0, 90) }));
   const fixed = {};
-  for (const k of ['character', 'style', 'palette', 'timePhrase', 'set']) if (series[k]) fixed[k] = series[k];
+  for (const k of ['character', 'style', 'palette', 'timePhrase', 'set', 'frame']) if (series[k]) fixed[k] = series[k];
   const styleLib = series.style ? null : Object.fromEntries(Object.entries(prompts.styles).filter(([k]) => !k.startsWith('_')));
 
   const user = [
@@ -55,6 +56,7 @@ export async function planSeries(store, name, { or, prompts, cfg, candidates = 1
     const book = Object.assign(store.book(t.slug) || blankBook(t.slug, name), {
       series: name, set: series.set || 'bedtime', title: hdr.title, synopsis: hdr.synopsis, refrain: hdr.refrain, sky: hdr.sky, cover: hdr.cover,
       character: series.character ? '' : hdr.character, style: series.style ? '' : hdr.style, palette: series.palette ? '' : hdr.palette,
+      frame: series.frame ? '' : (['full', 'square', 'rounded'].includes(hdr.frame) ? hdr.frame : 'full'),
     });
     if (t.hint) book.setting = t.hint;
     if (!book.pages) book.pages = [];

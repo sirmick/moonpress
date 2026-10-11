@@ -15,10 +15,10 @@ export function packageInputs(store, book, state) {
     const src = store.src(book.slug, key);
     if (!fs.existsSync(src)) continue;
     const p = pageOf(book, key), e = state.pages[key]?.edit || {};
-    pages.push({ key, src: stampBytes(fs.readFileSync(src)), crop: e.crop || null, border: e.border || 0,
+    pages.push({ key, src: stampBytes(fs.readFileSync(src)), crop: e.crop || null,
                  text: p?.text || '', text_pos: p ? effectiveTextPos(p, state) : null, word: p?.word || '' });
   }
-  return { set: h.set, title: book.title, pages };
+  return { set: h.set, title: book.title, frame: h.frame, pages };
 }
 
 /** True when the book has a cover image, so it can be packaged at all. */
@@ -38,7 +38,7 @@ export async function packageBook(store, slug, { force = false, log = () => {} }
   for (const p of inputs.pages) {
     const srcBuf = fs.readFileSync(store.src(slug, p.key));
     const page = pageOf(book, p.key);
-    const opts = { crop: p.crop || undefined, border: p.border };
+    const opts = { crop: p.crop || undefined, frame: h.frame };
     const device = await processPage(srcBuf, opts);
     writeBytes(store.out(slug, `${p.key}.webp`), await encodeWebp(device, DEVICE_QUALITY));
     const view = await composite(srcBuf, { page, set: h.set, text_pos: p.text_pos, ...opts });

@@ -1,14 +1,14 @@
 {
  "v": 1,
  "minApp": 2,
- "generated": "2026-10-11T19:37:11.459Z",
+ "generated": "2026-10-11T19:53:40.106Z",
  "books": [
   {
    "slug": "kittens",
    "title": "Goodnight, Kittens",
    "set": "bedtime",
    "series": "bedtime",
-   "hash": "701f433c666a",
+   "hash": "eca06071aa70",
    "bytes": 935205,
    "pages": 12,
    "files": [
@@ -33,7 +33,7 @@
    "title": "Sit, Pip",
    "set": "reading",
    "series": "reading",
-   "hash": "65c63dc5d511",
+   "hash": "980f90b3f909",
    "bytes": 506531,
    "pages": 12,
    "files": [

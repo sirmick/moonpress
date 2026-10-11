@@ -16,7 +16,8 @@ words on the page. Judge the page against these checks, in this order of importa
 6. `extras`: nothing odd: duplicated characters, extra limbs, a second moon, objects floating,
    anatomy that would puzzle a child.
 
-Each check is `ok` or a short phrase saying what is wrong.
+Each check is `ok` or a short phrase saying what is wrong. Whether the picture runs to the edges or
+sits inside a white frame is the book's design, the same on every page; never comment on it.
 
 Then choose one action, the cheapest that fixes the worst problem:
 - `ok`: nothing to fix.
@@ -25,7 +26,6 @@ Then choose one action, the cheapest that fixes the worst problem:
 - `crop`: zoom in. `crop` is `[x, y, w, h]` in fractions of the picture, keeping a 3:4 shape,
   w at least 0.6. Use it to cut a stray mark at an edge or to tighten a loose composition. Say
   where the panel should go afterwards in `to`.
-- `border`: a white border, `px` wide (40 to 80), when the picture runs to the edge awkwardly.
 - `edit`: ask the illustrator to change one thing and keep the rest. `instruction` is one plain
   sentence ("Remove the letters on the sign." "Make the sky pale lavender instead of black.").
   Use this for text in the picture, a wrong colour, one extra animal, a dark sky.

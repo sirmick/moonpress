@@ -17,5 +17,8 @@ Rules:
 - The style is one paragraph in the form of the examples, ending with "No text, letters or numbers
   anywhere in the image."
 - Titles are short and warm. For a series the titles share a pattern.
+- The frame is one policy for the whole book: `full` (pictures run to the edges), `square` (every
+  page sits in a white frame) or `rounded` (a white frame with rounded corners). Pick what suits
+  the style, and vary it across a shelf. Within a series keep it the same unless the brief says otherwise.
 
 Reply with JSON only, matching the schema you are given.
